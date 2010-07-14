@@ -1,22 +1,21 @@
 //= require "selection"
 
-if (Prototype.Browser.IE) {
-  Object.extend(Selection.prototype, (function() {
+if ($.browser.msie) {
+  jQuery.extend(Selection.prototype, (function() {
     function setBookmark() {
-      var bookmark = $('bookmark');
+      var bookmark = $('#bookmark');
       if (bookmark) bookmark.remove();
 
-      bookmark = new Element('span', { 'id': 'bookmark' }).update("&nbsp;");
-      var parent = new Element('div');
-      parent.appendChild(bookmark);
+      bookmark = $('<span id="bookmark">&nbsp;</span>');
+      var parent = $('<div></div>').html(bookmark);
 
       var range = this._document.selection.createRange();
       range.collapse();
-      range.pasteHTML(parent.innerHTML);
+      range.pasteHTML(parent.html());
     }
 
     function moveToBookmark() {
-      var bookmark = $('bookmark');
+      var bookmark = $('#bookmark');
       if (!bookmark) return;
 
       var range = this._document.selection.createRange();
@@ -33,17 +32,17 @@ if (Prototype.Browser.IE) {
     }
   })());
 } else {
-  Object.extend(Selection.prototype, (function() {
+  jQuery.extend(Selection.prototype, (function() {
     function setBookmark() {
-      var bookmark = $('bookmark');
+      var bookmark = $('#bookmark');
       if (bookmark) bookmark.remove();
 
-      bookmark = new Element('span', { 'id': 'bookmark' }).update("&nbsp;");
+      bookmark = $('<span id="bookmark">&nbsp;</span>');
       this.getRangeAt(0).insertNode(bookmark);
     }
 
     function moveToBookmark() {
-      var bookmark = $('bookmark');
+      var bookmark = $('#bookmark');
       if (!bookmark) return;
 
       var range = document.createRange();

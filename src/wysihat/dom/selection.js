@@ -1,8 +1,8 @@
 //= require "ierange"
 //= require "range"
 
-if (Prototype.Browser.IE) {
-  Object.extend(Selection.prototype, (function() {
+if ($.browser.msie) {
+  jQuery.extend(Selection.prototype, (function() {
     // TODO: More robust getNode
     function getNode() {
       var range = this._document.selection.createRange();
@@ -28,7 +28,7 @@ if (Prototype.Browser.IE) {
     Selection.prototype = window.getSelection().__proto__;
   }
 
-  Object.extend(Selection.prototype, (function() {
+  jQuery.extend(Selection.prototype, (function() {
     function getNode() {
       if (this.rangeCount > 0)
         return this.getRangeAt(0).getNode();
