@@ -1,12 +1,13 @@
 (function() {
   function cloneWithAllowedAttributes(element, allowedAttributes) {
-    var result = new Element(element.tagName), length = allowedAttributes.length, i;
+    var length = allowedAttributes.length, i;
+    var result = $('<' + element.tagName.toLowerCase() + '></' + element.tagName.toLowerCase() + '>')
     element = $(element);
 
     for (i = 0; i < allowedAttributes.length; i++) {
       attribute = allowedAttributes[i];
-      if (element.hasAttribute(attribute)) {
-        result.writeAttribute(attribute, element.readAttribute(attribute));
+      if (element.attr(attribute)) {
+        result.attr(attribute, element.attr(attribute));
       }
     }
 
@@ -14,7 +15,8 @@
   }
 
   function withEachChildNodeOf(element, callback) {
-    var nodes = $A(element.childNodes), length = nodes.length, i;
+    var nodes = $(element).children;
+    var length = nodes.length, i;
     for (i = 0; i < length; i++) callback(nodes[i]);
   }
 
@@ -78,4 +80,29 @@
       return element;
     }
   });
+  jQuery.fn.sanitizeContents = function(options) {
+    var element = $(this);
+    var tagsToRemove = {};
+    $.each((options.remove || "").split(","), function(tagName) {
+      tagsToRemove[$.trim(tagName)] = true;
+    });
+
+    var tagsToAllow = {};
+    $.each((options.allow || "").split(","), function(selector) {
+      var parts = $.trim(selector).split(/[\[\]]/);
+      var tagName = parts[0];
+      var allowedAttributes = $.grep(parts.slice(1), function(n, i) {
+        return /./.test(n);
+      });
+      tagsToAllow[tagName] = allowedAttributes;
+    });
+
+    var tagsToSkip = options.skip;
+
+    withEachChildNodeOf(element, function(childNode) {
+      sanitizeNode(childNode, tagsToRemove, tagsToAllow, tagsToSkip);
+    });
+
+    return element;
+  }
 })();

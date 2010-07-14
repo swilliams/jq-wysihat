@@ -1,10 +1,10 @@
 (function() {
   function onReadyStateComplete(document, callback) {
-    var handler;
 
     function checkReadyState() {
       if (document.readyState === 'complete') {
-        if (handler) handler.stop();
+        // TODO: the prototype code checked to see if the event exists before removing it.
+        $(document).unbind('readystatechange', checkReadyState);
         callback();
         return true;
       } else {
@@ -12,34 +12,35 @@
       }
     }
 
-    handler = Element.on(document, 'readystatechange', checkReadyState);
+    $(document).bind('readystatechange', checkReadyState);
     checkReadyState();
   }
 
   function observeFrameContentLoaded(element) {
     element = $(element);
+    var bare = element.get(0);
 
     var loaded, contentLoadedHandler;
 
     loaded = false;
     function fireFrameLoaded() {
-      if (loaded) return;
+      if (loaded) { return };
 
       loaded = true;
-      if (contentLoadedHandler) contentLoadedHandler.stop();
-      element.fire('frame:loaded');
+      if (contentLoadedHandler) { contentLoadedHandler.stop(); }
+      element.trigger('frame:loaded');
     }
 
     if (window.addEventListener) {
-      contentLoadedHandler = document.on("DOMFrameContentLoaded", function(event) {
-        if (element == event.element())
+      contentLoadedHandler = $(document).bind("DOMFrameContentLoaded", function(event) {
+        if (element == $(this))
           fireFrameLoaded();
       });
     }
 
-    element.on('load', function() {
+    element.load(function() {
       var frameDocument;
-
+      // TODO: find contentDocument
       if (typeof element.contentDocument !== 'undefined') {
         frameDocument = element.contentDocument;
       } else if (typeof element.contentWindow !== 'undefined' && typeof element.contentWindow.document !== 'undefined') {
@@ -52,13 +53,11 @@
     return element;
   }
 
-  function onFrameLoaded(element, callback) {
-    element.on('frame:loaded', callback);
-    element.observeFrameContentLoaded();
+  function onFrameLoaded($element, callback) {
+    $element.bind('frame:loaded', callback);
+    $element.observeFrameContentLoaded();
   }
 
-  Element.addMethods({
-    observeFrameContentLoaded: observeFrameContentLoaded,
-    onFrameLoaded: onFrameLoaded
-  });
+  jQuery.fn.observeFrameContentLoaded = observeFrameContentLoaded;
+  jQuery.fn.onFrameLoaded = onFrameLoaded;
 })();

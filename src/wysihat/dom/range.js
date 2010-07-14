@@ -1,6 +1,6 @@
 //= require "ierange"
 
-Object.extend(Range.prototype, (function() {
+jQuery.extend(Range.prototype, (function() {
   function beforeRange(range) {
     if (!range || !range.compareBoundaryPoints) return false;
     return (this.compareBoundaryPoints(this.START_TO_START, range) == -1 &&

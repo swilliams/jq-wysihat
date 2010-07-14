@@ -87,7 +87,7 @@ WysiHat.Commands = (function(window) {
   **/
   function indentSelection() {
     // TODO: Should use feature detection
-    if (Prototype.Browser.Gecko) {
+    if ($.browser.mozilla) {
       var selection, range, node, blockquote;
 
       selection = window.getSelection();
@@ -101,7 +101,7 @@ WysiHat.Commands = (function(window) {
         selection.addRange(range);
       }
 
-      blockquote = new Element('blockquote');
+      blockquote = $('<blockquote></blockquote>');
       range = selection.getRangeAt(0);
       range.surroundContents(blockquote);
     } else {
@@ -178,7 +178,7 @@ WysiHat.Commands = (function(window) {
    * color of the entire iframe unless hilitecolor is used.
   **/
   function backgroundColorSelection(color) {
-    if(Prototype.Browser.Gecko) {
+    if($.browser.mozilla) {
       this.execCommand('hilitecolor', false, color);
     } else {
       this.execCommand('backcolor', false, color);
@@ -201,7 +201,7 @@ WysiHat.Commands = (function(window) {
   **/
   function alignSelected() {
     var node = window.getSelection().getNode();
-    return Element.getStyle(node, 'textAlign');
+    return $(node).css('textAlign');
   }
 
   /**
@@ -357,7 +357,7 @@ WysiHat.Commands = (function(window) {
    *  Insert HTML at the insertion point.
   **/
   function insertHTML(html) {
-    if (Prototype.Browser.IE) {
+    if ($.browser.msie) {
       var range = window.document.selection.createRange();
       range.pasteHTML(html);
       range.collapse(false);

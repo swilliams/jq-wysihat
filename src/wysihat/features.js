@@ -2,8 +2,8 @@ WysiHat.BrowserFeatures = (function() {
   function createTmpIframe(callback) {
     var frame, frameDocument;
 
-    frame = new Element('iframe');
-    frame.setStyle({
+    frame = $('<iframe></iframe>');
+    frame.css({
       position: 'absolute',
       left: '-1000px'
     });
