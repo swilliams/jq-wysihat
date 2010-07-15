@@ -7,6 +7,8 @@ WysiHat is a WYSIWYG JavaScript framework that provides an extensible
 foundation to design your own rich text editor. WysiHat stays out of your
 way and leaves the UI design to you.
 
+The original version of WysiHat was designed to run on Prototype. This fork of it was ported to run on jQuery. 
+
 ### Support platforms
 
 WysiHat currently supports:
@@ -18,7 +20,7 @@ WysiHat currently supports:
 
 ### Dependencies
 
-* Prototype 1.7 or later (http://prototypejs.org/)
+* jQuery 1.4.2 or later (http://jquery.com/)
 
 ## Documentation
 
