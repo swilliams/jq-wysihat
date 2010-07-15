@@ -5,10 +5,10 @@ WysiHat.Formatting = (function() {
 
   return {
     getBrowserMarkupFrom: function(applicationMarkup) {
-      var container = new Element("div").update(applicationMarkup);
+      var container = $("<div>" + applicationMarkup + "</div>");
 
       function spanify(element, style) {
-        element.replace(
+        $(element).replaceWith(
           '<span style="' + style +
           '" class="Apple-style-span">' +
           element.innerHTML + '</span>'
@@ -16,27 +16,27 @@ WysiHat.Formatting = (function() {
       }
 
       function convertStrongsToSpans() {
-        container.select("strong").each(function(element) {
+        container.find("strong").each(function(element) {
           spanify(element, "font-weight: bold");
         });
       }
 
       function convertEmsToSpans() {
-        container.select("em").each(function(element) {
+        container.find("em").each(function(element) {
           spanify(element, "font-style: italic");
         });
       }
 
       function convertDivsToParagraphs() {
-        container.select("div").each(function(element) {
-          element.replace("<p>" + element.innerHTML + "</p>");
+        container.find("div").each(function(element) {
+          element.replaceWith("<p>" + element.innerHTML + "</p>");
         });
       }
 
-      if (Prototype.Browser.WebKit || Prototype.Browser.Gecko) {
+      if ($.browser.webkit || $.browser.mozilla) {
         convertStrongsToSpans();
         convertEmsToSpans();
-      } else if (Prototype.Browser.IE || Prototype.Browser.Opera) {
+      } else if ($.browser.msie || $.browser.opera) {
         convertDivsToParagraphs();
       }
 
@@ -69,7 +69,7 @@ WysiHat.Formatting = (function() {
           // if it's a block-level element and the line buffer is full, flush it
           if (isBlockElement(tagName)) {
             if (isEmptyParagraph(node)) {
-              accumulate(new Element("br"));
+              accumulate($("<br />"));
             }
 
             flush();
@@ -174,10 +174,10 @@ WysiHat.Formatting = (function() {
 
         if (tagName == "span") {
           if ($(node).getStyle("fontWeight") == "bold") {
-            element = new Element("strong");
+            element = $("<strong></strong>");
 
           } else if ($(node).getStyle("fontStyle") == "italic") {
-            element = new Element("em");
+            element = $("<em></em>");
           }
         }
 
@@ -208,9 +208,9 @@ WysiHat.Formatting = (function() {
 
       function createLine() {
         if (mode == ACCUMULATING_LINE) {
-          return new Element("div");
+          return $("<div></div>");
         } else if (mode == ACCUMULATING_LIST_ITEM) {
-          return new Element("li");
+          return $("<li></li>");
         }
       }
 
@@ -220,7 +220,7 @@ WysiHat.Formatting = (function() {
         return list;
       }
 
-      result = container = new Element("div");
+      result = container = $("<div></div>");
       walk(element.childNodes);
       flush();
       return result.innerHTML;

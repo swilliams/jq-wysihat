@@ -17,6 +17,7 @@
  *  lose your current selection.
 **/
 WysiHat.Commands = (function(window) {
+  
   /**
    *  WysiHat.Commands#boldSelection() -> undefined
    *
@@ -377,7 +378,7 @@ WysiHat.Commands = (function(window) {
    *  A simple delegation method to the documents execCommand method.
   **/
   function execCommand(command, ui, value) {
-    var handler = this.commands.get(command);
+    var handler = this.commands[command];
     if (handler) {
       handler.bind(this)(value);
     } else {
@@ -386,7 +387,7 @@ WysiHat.Commands = (function(window) {
       } catch(e) { return null; }
     }
 
-    document.activeElement.fire("field:change");
+    $(document.activeElement).trigger("field:change");
   }
 
   /**
@@ -402,7 +403,7 @@ WysiHat.Commands = (function(window) {
    *  editor.queryCommands.set("link", editor.linkSelected);
   **/
   function queryCommandState(state) {
-    var handler = this.queryCommands.get(state);
+    var handler = this.queryCommands[state];
     if (handler) {
       return handler.bind(this)();
     } else {
@@ -419,11 +420,11 @@ WysiHat.Commands = (function(window) {
    *  selection and returns it as a hash
   **/
   function getSelectedStyles() {
-    var styles = $H({});
+    var styles = {};
     var editor = this;
     editor.styleSelectors.each(function(style){
       var node = editor.selection.getNode();
-      styles.set(style.first(), Element.getStyle(node, style.last()));
+      styles[style.first()] = $(node).css(style.last());
     });
     return styles;
   }
@@ -462,20 +463,20 @@ WysiHat.Commands = (function(window) {
      queryCommandState:        queryCommandState,
      getSelectedStyles:        getSelectedStyles,
 
-    commands: $H({}),
+    commands: {},
 
-    queryCommands: $H({
+    queryCommands: {
       link:          linkSelected,
       orderedlist:   orderedListSelected,
       unorderedlist: unorderedListSelected
-    }),
+    },
 
-    styleSelectors: $H({
+    styleSelectors: {
       fontname:    'fontFamily',
       fontsize:    'fontSize',
       forecolor:   'color',
       hilitecolor: 'backgroundColor',
       backcolor:   'backgroundColor'
-    })
+    }
   };
 })(window);

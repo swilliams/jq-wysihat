@@ -5,18 +5,45 @@
 
   <link rel="stylesheet" href="editor.css" type="text/css" />
 
-  <script type="text/javascript" src="../dist/prototype.js"></script>
-  <script type="text/javascript" src="../dist/wysihat.js"></script>
+  <script type="text/javascript" src="../dist/jquery-1.4.2.min.js"></script>
+  <!-- <script type="text/javascript" src="../dist/wysihat.js"></script> -->
+	<script src="../src/wysihat.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../src/wysihat/editor.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../src/wysihat/features.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../src/wysihat/commands.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../src/wysihat/dom/ierange.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../src/wysihat/dom/range.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../src/wysihat/dom/selection.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../src/wysihat/dom/bookmark.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../src/wysihat/element/sanitize_contents.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../src/wysihat/events/field_change.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../src/wysihat/events/frame_loaded.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../src/wysihat/events/selection_change.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../src/wysihat/formatting.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../src/wysihat/toolbar.js" type="text/javascript" charset="utf-8"></script>
 
   <script type="text/javascript" charset="utf-8">
-    document.on("dom:loaded", function() {
+    $(function() { 
       var editor = WysiHat.Editor.attach('content');
       var toolbar = new WysiHat.Toolbar(editor);
+		toolbar.initialize(editor);
       toolbar.addButtonSet(WysiHat.Toolbar.ButtonSets.Basic);
 
       // Hide our error message if the editor loads fine
-      $('error').hide();
+      $('#error').hide();
     });
+
+	function foo(name) {
+		this.name = name;
+		var that = this;
+		return {
+			namey: that.name
+		};
+	}
+	
+	var f = new foo('steve');
+	//alert(f.namey);
+
   </script>
 </head>
 

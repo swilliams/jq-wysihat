@@ -13,13 +13,13 @@ WYSIHAT_SRC_DIR = File.join(WYSIHAT_ROOT, 'src')
 
 # Distribution
 
-file 'dist/prototype.js' => :sprockets do |t|
-  prototype_src_dir = "#{WYSIHAT_ROOT}/vendor/prototype/src"
+file 'dist/jquery-1.4.2.min.js' => :sprockets do |t|
+  jquery_src_dir = "#{WYSIHAT_ROOT}/vendor/jquery"
 
   secretary = Sprockets::Secretary.new(
-    :root         => prototype_src_dir,
-    :load_path    => [prototype_src_dir],
-    :source_files => ["prototype.js"]
+    :root         => jquery_src_dir,
+    :load_path    => [jquery_src_dir],
+    :source_files => ["jquery-1.4.2.min.js"]
   )
 
   FileUtils.mkdir_p File.dirname(t.name)
@@ -40,7 +40,7 @@ end
 task :default => :dist
 
 desc "Builds the distribution."
-task :dist => ['dist/prototype.js', 'dist/wysihat.js']
+task :dist => ['dist/jquery-1.4.2.min.js', 'dist/wysihat.js']
 
 
 # Documentation

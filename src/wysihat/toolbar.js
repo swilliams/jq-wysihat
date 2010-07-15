@@ -1,9 +1,52 @@
 //= require "events/selection_change"
 
+// function createClass() {
+//   var parent = null; 
+//   var properties = arguments;
+//   function klass() {
+//     this.initialize.apply(this, arguments);
+//   }
+//   klass.superclass = parent;
+//   klass.subclasses = [];
+//   
+//   if (parent) {
+//     subclass.prototype = parent.prototype;
+//     klass.prototype = new subclass;
+//     parent.subclasses.push(klass);
+//   }
+//   
+//   for (var i = 0, length = properties.length; i < length; i++) {
+//     klass.addMethods(properties[i]);
+//   }
+//   
+//   if (!klass.prototype.initialize) {
+//     klass.prototype.initialize = function() {};
+//   }
+//   klass.prototype.constructor = klass;
+//   return klass;
+// }
+// 
+// function addMethods(source) {
+//   var ancestor = this.superclass && this.superclass.prototype;
+//   for (var key in source) {
+//     var property = key;
+//     var value = source[key];
+//     if (ancestor && typeof value === 'function' && value.argumentNames()[0] == "$super") {
+//       var method = value;
+//       value = (function(m) {
+//         return function() { return ancestor[m].apply(this, arguments); };
+//       })(property).wrap(method);
+//     }
+//   }
+// }
+
 /** section: wysihat
  *  class WysiHat.Toolbar
 **/
-WysiHat.Toolbar = Class.create((function() {
+WysiHat.Toolbar = function() {
+  var editor;
+  var element;
+  
   /**
    *  new WysiHat.Toolbar(editor)
    *  - editor (WysiHat.Editor): the editor object that you want to attach to
@@ -17,9 +60,9 @@ WysiHat.Toolbar = Class.create((function() {
    *  it is highly recommended that you subclass it and override methods
    *  to add custom functionality.
   **/
-  function initialize(editor) {
-    this.editor = editor;
-    this.element = this.createToolbarElement();
+  function initialize(ed) {
+    editor = ed;
+    element = createToolbarElement();
   }
 
   /**
@@ -34,8 +77,8 @@ WysiHat.Toolbar = Class.create((function() {
    *  inserted.
   **/
   function createToolbarElement() {
-    var toolbar = new Element('div', { 'class': 'editor_toolbar' });
-    this.editor.insert({before: toolbar});
+    var toolbar = $('<div class="editor_toolbar"></div>');
+    editor.before(toolbar);
     return toolbar;
   }
 
@@ -47,9 +90,9 @@ WysiHat.Toolbar = Class.create((function() {
    *  Adds a button set to the toolbar.
   **/
   function addButtonSet(set) {
-    $A(set).each(function(button){
-      this.addButton(button);
-    }.bind(this));
+    $(set).each(function(index, button){
+      addButton(button);
+    });
   }
 
   /**
@@ -76,19 +119,20 @@ WysiHat.Toolbar = Class.create((function() {
    *  "<a href='#' class='button bold'><span>Bold</span></a>"
   **/
   function addButton(options, handler) {
-    options = $H(options);
+    //options = $H(options);
 
-    if (!options.get('name'))
-      options.set('name', options.get('label').toLowerCase());
-    var name = options.get('name');
+    if (!options['name']) {
+      options['name'] = options['label'].toLowerCase();
+    }
+    var name = options['name'];
 
-    var button = this.createButtonElement(this.element, options);
+    var button = createButtonElement(element, options);
 
-    var handler = this.buttonHandler(name, options);
-    this.observeButtonClick(button, handler);
+    var handler = buttonHandler(name, options);
+    observeButtonClick(button, handler);
 
-    var handler = this.buttonStateHandler(name, options);
-    this.observeStateChanges(button, name, handler);
+    var handler = buttonStateHandler(name, options);
+    observeStateChanges(button, name, handler);
   }
 
   /**
@@ -104,13 +148,10 @@ WysiHat.Toolbar = Class.create((function() {
    *  inserted.
   **/
   function createButtonElement(toolbar, options) {
-    var button = new Element('a', {
-      'class': 'button', 'href': '#'
-    });
-    button.update('<span>' + options.get('label') + '</span>');
-    button.addClassName(options.get('name'));
+    var button = $('<a class="button" href="#"><span>' + options['label'] + '</span></a>');
+    button.addClass(options['name']);
 
-    toolbar.appendChild(button);
+    toolbar.append(button);
 
     return button;
   }
@@ -127,8 +168,8 @@ WysiHat.Toolbar = Class.create((function() {
   function buttonHandler(name, options) {
     if (options.handler)
       return options.handler;
-    else if (options.get('handler'))
-      return options.get('handler');
+    else if (options['handler'])
+      return options['handler'];
     else
       return function(editor) { editor.execCommand(name); };
   }
@@ -141,10 +182,10 @@ WysiHat.Toolbar = Class.create((function() {
    *  Bind handler to elements onclick event.
   **/
   function observeButtonClick(element, handler) {
-    element.on('click', function(event) {
-      handler(this.editor);
-      event.stop();
-    }.bind(this));
+    $(element).click(function() {
+      handler(editor);
+      //event.stop();
+    });
   }
 
   /**
@@ -160,8 +201,8 @@ WysiHat.Toolbar = Class.create((function() {
   function buttonStateHandler(name, options) {
     if (options.query)
       return options.query;
-    else if (options.get('query'))
-      return options.get('query');
+    else if (options['query'])
+      return options['query'];
     else
       return function(editor) { return editor.queryCommandState(name); };
   }
@@ -177,13 +218,13 @@ WysiHat.Toolbar = Class.create((function() {
   **/
   function observeStateChanges(element, name, handler) {
     var previousState;
-    this.editor.on("selection:change", function(event) {
-      var state = handler(this.editor);
+    editor.bind("selection:change", function() {
+      var state = handler(editor);
       if (state != previousState) {
         previousState = state;
-        this.updateButtonState(element, name, state);
+        updateButtonState(element, name, state);
       }
-    }.bind(this));
+    });
   }
 
   /**
@@ -198,11 +239,11 @@ WysiHat.Toolbar = Class.create((function() {
    *  You can override this method to change the class name or styles
    *  applied to buttons when their state changes.
   **/
-  function updateButtonState(element, name, state) {
+  function updateButtonState(elem, name, state) {
     if (state)
-      element.addClassName('selected');
+      $(elem).addClass('selected');
     else
-      element.removeClassName('selected');
+      $(elem).removeClass('selected');
   }
 
   return {
@@ -217,7 +258,7 @@ WysiHat.Toolbar = Class.create((function() {
     observeStateChanges:  observeStateChanges,
     updateButtonState:    updateButtonState
   };
-})());
+};
 
 /**
  * WysiHat.Toolbar.ButtonSets
@@ -235,8 +276,8 @@ WysiHat.Toolbar.ButtonSets = {};
  *  compatible with WysiHat.Toolbar, and can be added to the toolbar with:
  *  toolbar.addButtonSet(WysiHat.Toolbar.ButtonSets.Basic);
 **/
-WysiHat.Toolbar.ButtonSets.Basic = $A([
+WysiHat.Toolbar.ButtonSets.Basic = [
   { label: "Bold" },
   { label: "Underline" },
   { label: "Italic" }
-]);
+];

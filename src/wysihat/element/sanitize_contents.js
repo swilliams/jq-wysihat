@@ -55,31 +55,6 @@
     }
   }
 
-  Element.addMethods({
-    sanitizeContents: function(element, options) {
-      element = $(element);
-
-      var tagsToRemove = {};
-      (options.remove || "").split(",").each(function(tagName) {
-        tagsToRemove[tagName.strip()] = true;
-      });
-
-      var tagsToAllow = {};
-      (options.allow || "").split(",").each(function(selector) {
-        var parts = selector.strip().split(/[\[\]]/);
-        var tagName = parts[0], allowedAttributes = parts.slice(1).grep(/./);
-        tagsToAllow[tagName] = allowedAttributes;
-      });
-
-      var tagsToSkip = options.skip;
-
-      withEachChildNodeOf(element, function(childNode) {
-        sanitizeNode(childNode, tagsToRemove, tagsToAllow, tagsToSkip);
-      });
-
-      return element;
-    }
-  });
   jQuery.fn.sanitizeContents = function(options) {
     var element = $(this);
     var tagsToRemove = {};
