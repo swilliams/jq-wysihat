@@ -235,7 +235,7 @@ WysiHat.Commands = (function(window) {
   **/
   function linkSelected() {
     var node = window.getSelection().getNode();
-    return node ? node.tagName.toUpperCase() == 'A' : false;
+    return node ? node.get(0).tagName.toUpperCase() == 'A' : false;
   }
 
   /**
@@ -405,7 +405,7 @@ WysiHat.Commands = (function(window) {
   function queryCommandState(state) {
     var handler = this.queryCommands[state];
     if (handler) {
-      return handler.bind(this)();
+      return handler();
     } else {
       try {
         return window.document.queryCommandState(state);
