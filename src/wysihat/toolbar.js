@@ -1,31 +1,31 @@
 //= require "events/selection_change"
 
 // function createClass() {
-//   var parent = null; 
+//   var parent = null;
 //   var properties = arguments;
 //   function klass() {
 //     this.initialize.apply(this, arguments);
 //   }
 //   klass.superclass = parent;
 //   klass.subclasses = [];
-//   
+//
 //   if (parent) {
 //     subclass.prototype = parent.prototype;
 //     klass.prototype = new subclass;
 //     parent.subclasses.push(klass);
 //   }
-//   
+//
 //   for (var i = 0, length = properties.length; i < length; i++) {
 //     klass.addMethods(properties[i]);
 //   }
-//   
+//
 //   if (!klass.prototype.initialize) {
 //     klass.prototype.initialize = function() {};
 //   }
 //   klass.prototype.constructor = klass;
 //   return klass;
 // }
-// 
+//
 // function addMethods(source) {
 //   var ancestor = this.superclass && this.superclass.prototype;
 //   for (var key in source) {
@@ -46,7 +46,7 @@
 WysiHat.Toolbar = function() {
   var editor;
   var element;
-  
+
   /**
    *  new WysiHat.Toolbar(editor)
    *  - editor (WysiHat.Editor): the editor object that you want to attach to
@@ -119,8 +119,6 @@ WysiHat.Toolbar = function() {
    *  "<a href='#' class='button bold'><span>Bold</span></a>"
   **/
   function addButton(options, handler) {
-    //options = $H(options);
-
     if (!options['name']) {
       options['name'] = options['label'].toLowerCase();
     }
@@ -281,4 +279,11 @@ WysiHat.Toolbar.ButtonSets.Basic = [
   { label: "Bold" },
   { label: "Underline" },
   { label: "Italic" }
+];
+
+WysiHat.Toolbar.ButtonSets.Standard = [
+  { label: "Bold" },
+  { label: "Italic" },
+  { label: "Strikethrough" },
+  { label: "Bullets", handler: function(editor) { return editor.toggleUnorderedList(); } }
 ];
