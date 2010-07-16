@@ -31,3 +31,13 @@ var WysiHat = {};
 //= require "wysihat/formatting"
 
 //= require "wysihat/toolbar"
+
+// Set wysihat as a jQuery plugin
+$.fn.wysihat = function() {
+  return this.each(function() {
+        var editor = WysiHat.Editor.attach($(this));
+        var toolbar = new WysiHat.Toolbar(editor);
+        toolbar.initialize(editor);
+        toolbar.addButtonSet(WysiHat.Toolbar.ButtonSets.Basic);
+  });
+};
