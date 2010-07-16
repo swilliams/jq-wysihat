@@ -9,22 +9,20 @@ WysiHat.Editor = {
    *
    *  Creates a new editor for the textarea.
   **/
-  attach: function(textarea) {
+  attach: function($textarea) {
     var $editArea;
 
-    textarea = $('#' + textarea);
-
-    var id = textarea.attr('id') + '_editor';
+    var id = $textarea.attr('id') + '_editor';
     if ($editArea == $('#' + id)) { return $editArea; }
 
     $editArea = $('<div id="' + id + '" class="editor" contentEditable="true"></div>');
 
-    $editArea.html(WysiHat.Formatting.getBrowserMarkupFrom(textarea.val()));
+    $editArea.html(WysiHat.Formatting.getBrowserMarkupFrom($textarea.val()));
 
     jQuery.extend($editArea, WysiHat.Commands);
 
-    textarea.before($editArea);
-    textarea.hide();
+    $textarea.before($editArea);
+    $textarea.hide();
 
     // WysiHat.BrowserFeatures.run()
 
