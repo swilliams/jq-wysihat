@@ -139,7 +139,7 @@ WysiHat.Commands = (function(window) {
   **/
   function indentSelected() {
     var node = window.getSelection().getNode();
-    return node.match("blockquote, blockquote *");
+    return node.is("blockquote, blockquote *");
   }
 
   /**
@@ -265,11 +265,11 @@ WysiHat.Commands = (function(window) {
     selection = window.getSelection();
     node      = selection.getNode();
 
-    if (this.orderedListSelected() && !node.match("ol li:last-child, ol li:last-child *")) {
-      selection.selectNode(node.up("ol"));
+    if (this.orderedListSelected() && !node.is("ol li:last-child, ol li:last-child *")) {
+      selection.selectNode(node.parent("ol"));
     } else if (this.unorderedListSelected()) {
       // Toggle list type
-      selection.selectNode(node.up("ul"));
+      selection.selectNode(node.parent("ul"));
     }
 
     this.execCommand('insertorderedlist', false, null);
@@ -291,7 +291,7 @@ WysiHat.Commands = (function(window) {
   **/
   function orderedListSelected() {
     var element = window.getSelection().getNode();
-    if (element) return element.match('*[contenteditable=""] ol, *[contenteditable=true] ol, *[contenteditable=""] ol *, *[contenteditable=true] ol *');
+    if (element) return element.is('*[contenteditable=""] ol, *[contenteditable=true] ol, *[contenteditable=""] ol *, *[contenteditable=true] ol *');
     return false;
   }
 
@@ -311,11 +311,11 @@ WysiHat.Commands = (function(window) {
     selection = window.getSelection();
     node      = selection.getNode();
 
-    if (this.unorderedListSelected() && !node.match("ul li:last-child, ul li:last-child *")) {
-      selection.selectNode(node.up("ul"));
+    if (this.unorderedListSelected() && !node.is("ul li:last-child, ul li:last-child *")) {
+      selection.selectNode(node.parent("ul"));
     } else if (this.orderedListSelected()) {
       // Toggle list type
-      selection.selectNode(node.up("ol"));
+      selection.selectNode(node.parent("ol"));
     }
 
     this.execCommand('insertunorderedlist', false, null);
@@ -337,7 +337,7 @@ WysiHat.Commands = (function(window) {
   **/
   function unorderedListSelected() {
     var element = window.getSelection().getNode();
-    if (element) return element.match('*[contenteditable=""] ul, *[contenteditable=true] ul, *[contenteditable=""] ul *, *[contenteditable=true] ul *');
+    if (element) return element.is('*[contenteditable=""] ul, *[contenteditable=true] ul, *[contenteditable=""] ul *, *[contenteditable=true] ul *');
     return false;
   }
 

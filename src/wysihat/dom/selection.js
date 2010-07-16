@@ -38,7 +38,7 @@ if ($.browser.msie) {
 
     function selectNode(element) {
       var range = document.createRange();
-      range.selectNode(element);
+      range.selectNode(element[0]);
       this.removeAllRanges();
       this.addRange(range);
     }

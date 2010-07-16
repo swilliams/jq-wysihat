@@ -36,11 +36,13 @@ jQuery.extend(Range.prototype, (function() {
     while (parent.nodeType == Node.TEXT_NODE)
       parent = parent.parentNode;
 
-    var child = parent.childElements().detect(function(child) {
+    var child; 
+    var that = this;
+    $.each(parent.children, function(index, child) {
       var range = document.createRange();
       range.selectNodeContents(child);
-      return this.betweenRange(range);
-    }.bind(this));
+      child = that.betweenRange(range);
+    });
 
     return $(child || parent);
   }
