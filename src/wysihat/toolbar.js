@@ -185,6 +185,7 @@ WysiHat.Toolbar = function() {
     $(element).click(function() {
       handler(editor);
       //event.stop();
+      return false;
     });
   }
 
