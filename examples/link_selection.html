@@ -53,14 +53,16 @@
     }
   }
 
-  document.on("dom:loaded", function() {
+  $(document).ready(function() {
     var editor = WysiHat.Editor.attach('content');
     var toolbar = new WysiHat.Toolbar(editor);
+		toolbar.initialize(editor);
 
     toolbar.addButton({
       label: "Link",
       handler: function(editor) { return editor.promptLinkSelection(); }
     });
+
   });
 </pre></code>
 

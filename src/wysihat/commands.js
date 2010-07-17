@@ -8,9 +8,9 @@
  *  methods will be used to bind to button clicks or key presses.
  *
  *  var editor = WysiHat.Editor.attach(textarea);
- *  $('bold_button').on('click', function(event) {
+ *  $('#bold_button').click(function(event) {
  *    editor.boldSelection();
- *    event.stop();
+ *    return false;
  *  });
  *
  *  In this example, it is important to stop the click event so you don't

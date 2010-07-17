@@ -4,8 +4,8 @@
 WysiHat.Editor = {
   /** section: wysihat
    *  WysiHat.Editor.attach(textarea) -> undefined
-   *  - textarea (String | Element): an id or DOM node of the textarea that
-   *    you want to convert to rich text.
+   *  - $textarea (jQuery): a jQuery wrapped textarea that you want to convert 
+   * to a rich-text field.
    *
    *  Creates a new editor for the textarea.
   **/

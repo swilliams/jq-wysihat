@@ -3,11 +3,11 @@ WysiHat
 
 #### A WYSIWYG JavaScript framework
 
-WysiHat is a WYSIWYG JavaScript framework that provides an extensible
+JQ-WysiHat is a WYSIWYG JavaScript framework that provides an extensible
 foundation to design your own rich text editor. WysiHat stays out of your
 way and leaves the UI design to you.
 
-The original version of WysiHat was designed to run on Prototype. This fork of it was ported to run on jQuery. 
+The original version of WysiHat was designed to run on Prototype. This fork of it was ported to run on jQuery (used against 1.4.2).
 
 ### Support platforms
 
@@ -20,7 +20,7 @@ WysiHat currently supports:
 
 ### Dependencies
 
-* jQuery 1.4.2 or later (http://jquery.com/)
+* jQuery 1.4.2 or later (http://jquery.com/) although older versions will probably work fine, they just haven't been tested.
 
 ## Documentation
 
@@ -32,9 +32,15 @@ The generated HTML documentation can be found on the `gh-pages` branch or viewed
 
 Several examples can be found under `examples/` to get you started.
 
+The easiest way is to simply call:
+
+    $('#myTextArea').wysihat();
+
+This adds some commonly used buttons to the toolbar and gets you going.
+
 ### Downloading
 
-Tagged releases will be posted on the GitHub downloads section (http://github.com/josh/wysihat/downloads).
+Once I get closer to a 'stable' version I'll tag a release and add it here.
 
 ### Building from source
 
@@ -45,9 +51,16 @@ the project from source. It is not required to run the code.
 
 ## Contributing
 
-Check out the WysiHat source with
+Check out the original WysiHat source with
 
     $ git clone git://github.com/josh/wysihat.git
+
+And the fork with
+
+    $ git clone git://github.com/swilliams/wysihat.git
+
+Then
+
     $ cd wysihat
     $ git submodule init
     $ git submodule update

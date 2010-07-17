@@ -40,7 +40,6 @@
 
     element.load(function() {
       var frameDocument;
-      // TODO: find contentDocument
       if (typeof element.contentDocument !== 'undefined') {
         frameDocument = element.contentDocument;
       } else if (typeof element.contentWindow !== 'undefined' && typeof element.contentWindow.document !== 'undefined') {

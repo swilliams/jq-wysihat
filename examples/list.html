@@ -36,19 +36,20 @@
   <p>This example shows you how to create a simple UI for inserting (un)ordered Lists</p>
 
 <code><pre>
-  document.on("dom:loaded", function() {
-    var editor = WysiHat.Editor.attach('content');
-    var toolbar = new WysiHat.Toolbar(editor);
+    $(document).ready(function() {
+      var editor = WysiHat.Editor.attach('content');
+      var toolbar = new WysiHat.Toolbar(editor);
+		toolbar.initialize(editor);
 
-    toolbar.addButton({
-      label: "Ordered List",
-      handler: function(editor) { return editor.toggleOrderedList(); }
-    });
+      toolbar.addButton({
+        label: "Ordered List",
+        handler: function(editor) { return editor.toggleOrderedList(); }
+      });
 
-    toolbar.addButton({
-      label: "Unordered List",
-      handler: function(editor) { return editor.toggleUnorderedList(); }
-    });
+      toolbar.addButton({
+        label: "Unordered List",
+        handler: function(editor) { return editor.toggleUnorderedList(); }
+      });
   });
 </pre></code>
 

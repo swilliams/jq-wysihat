@@ -1,45 +1,5 @@
 //= require "events/selection_change"
 
-// function createClass() {
-//   var parent = null;
-//   var properties = arguments;
-//   function klass() {
-//     this.initialize.apply(this, arguments);
-//   }
-//   klass.superclass = parent;
-//   klass.subclasses = [];
-//
-//   if (parent) {
-//     subclass.prototype = parent.prototype;
-//     klass.prototype = new subclass;
-//     parent.subclasses.push(klass);
-//   }
-//
-//   for (var i = 0, length = properties.length; i < length; i++) {
-//     klass.addMethods(properties[i]);
-//   }
-//
-//   if (!klass.prototype.initialize) {
-//     klass.prototype.initialize = function() {};
-//   }
-//   klass.prototype.constructor = klass;
-//   return klass;
-// }
-//
-// function addMethods(source) {
-//   var ancestor = this.superclass && this.superclass.prototype;
-//   for (var key in source) {
-//     var property = key;
-//     var value = source[key];
-//     if (ancestor && typeof value === 'function' && value.argumentNames()[0] == "$super") {
-//       var method = value;
-//       value = (function(m) {
-//         return function() { return ancestor[m].apply(this, arguments); };
-//       })(property).wrap(method);
-//     }
-//   }
-// }
-
 /** section: wysihat
  *  class WysiHat.Toolbar
 **/
@@ -48,8 +8,12 @@ WysiHat.Toolbar = function() {
   var element;
 
   /**
-   *  new WysiHat.Toolbar(editor)
-   *  - editor (WysiHat.Editor): the editor object that you want to attach to
+   *  new WysiHat.Toolbar(ed)
+   *  - ed (WysiHat.Editor): the editor object that you want to attach to.
+   *
+   *  This was renamed from 'editor' in the original wysihat code, since I 
+   *  had to add a class level 'editor' object, causing a conflict with the 
+   *  names.
    *
    *  Creates a toolbar element above the editor. The WysiHat.Toolbar object
    *  has many helper methods to easily add buttons to the toolbar.
@@ -281,6 +245,11 @@ WysiHat.Toolbar.ButtonSets.Basic = [
   { label: "Italic" }
 ];
 
+/**
+ * WysiHat.Toolbar.ButtonSets.Standard
+ * 
+ * The most common set of buttons that I will be using.
+**/
 WysiHat.Toolbar.ButtonSets.Standard = [
   { label: "Bold" },
   { label: "Italic" },
