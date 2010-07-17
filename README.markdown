@@ -57,11 +57,11 @@ Check out the original WysiHat source with
 
 And the fork with
 
-    $ git clone git://github.com/swilliams/wysihat.git
+    $ git clone git://github.com/swilliams/jq-wysihat.git
 
 Then
 
-    $ cd wysihat
+    $ cd jq-wysihat
     $ git submodule init
     $ git submodule update
 
