@@ -11,7 +11,7 @@ The original version of WysiHat was designed to run on Prototype. This fork of i
 
 ### Support platforms
 
-WysiHat currently supports:
+JQ-WysiHat currently supports:
 
 * Microsoft Internet Explorer for Windows, version 7.0
 * Mozilla Firefox 3.0
@@ -40,13 +40,13 @@ This adds some commonly used buttons to the toolbar and gets you going.
 
 ### Downloading
 
-Once I get closer to a 'stable' version I'll tag a release and add it here.
+Once I get closer to a 'stable' version I'll tag a release and add it here. However, in day to day use I haven't had any major troubles with it.
 
 ### Building from source
 
-You can build the latest version of WysiHat from source by running
+You can build the latest version of JQ-WysiHat from source by running
 `rake` the root directory. The generated file will be saved to
-`dist/wysihat.js`. Ruby and the Rake gem are only required to build
+`dist/jq-wysihat.js`. Ruby and the Rake gem are only required to build
 the project from source. It is not required to run the code.
 
 ## Contributing
@@ -69,4 +69,4 @@ GitHub pull requests are welcome.
 
 ## License
 
-WysiHat is released under the MIT license.
+jq-WysiHat is released under the MIT license.

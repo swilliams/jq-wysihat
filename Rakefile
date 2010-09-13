@@ -26,7 +26,7 @@ file 'dist/jquery-1.4.2.min.js' => :sprockets do |t|
   secretary.concatenation.save_to(t.name)
 end
 
-file 'dist/wysihat.js' => Dir['src/**/*'] + [:sprockets] do |t|
+file 'dist/jq-wysihat.js' => Dir['src/**/*'] + [:sprockets] do |t|
   secretary = Sprockets::Secretary.new(
     :root         => WYSIHAT_SRC_DIR,
     :load_path    => [WYSIHAT_SRC_DIR],
@@ -40,7 +40,7 @@ end
 task :default => :dist
 
 desc "Builds the distribution."
-task :dist => ['dist/jquery-1.4.2.min.js', 'dist/wysihat.js']
+task :dist => ['dist/jquery-1.4.2.min.js', 'dist/jq-wysihat.js']
 
 
 # Documentation
