@@ -53,8 +53,8 @@ WysiHat.Toolbar = function() {
    *
    *  Adds a button set to the toolbar.
   **/
-  function addButtonSet(set) {
-    $(set).each(function(index, button){
+  function addButtonSet(options) {
+    $(options.buttons).each(function(index, button){
       addButton(button);
     });
   }
@@ -110,9 +110,9 @@ WysiHat.Toolbar = function() {
    *  inserted.
   **/
   function createButtonElement(toolbar, options) {
-    var button = $('<a class="button" href="#"><span>' + options['label'] + '</span></a>');
+    var button = $('<a class="" href="#"><span>' + options['label'] + '</span></a>');
     button.addClass(options['name']);
-
+	button.addClass(options['cssClass'])
     toolbar.append(button);
 
     return button;
@@ -251,8 +251,8 @@ WysiHat.Toolbar.ButtonSets.Basic = [
  * The most common set of buttons that I will be using.
 **/
 WysiHat.Toolbar.ButtonSets.Standard = [
-  { label: "Bold" },
-  { label: "Italic" },
-  { label: "Strikethrough" },
-  { label: "Bullets", handler: function(editor) { return editor.toggleUnorderedList(); } }
+  { label: "Bold", cssClass: 'toolbar_button' },
+  { label: "Italic", cssClass: 'toolbar_button' },
+  { label: "Strikethrough", cssClass: 'toolbar_button' },
+  { label: "Bullets", cssClass: 'toolbar_button', handler: function(editor) { return editor.toggleUnorderedList(); } }
 ];

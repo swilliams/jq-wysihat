@@ -36,14 +36,14 @@ var WysiHat = {};
 
 // Set wysihat as a jQuery plugin
 $.fn.wysihat = function(options) {
-  options = options || {
-    buttons: WysiHat.Toolbar.ButtonSets.Standard
-  }
+	options = $.extend({
+			buttons: WysiHat.Toolbar.ButtonSets.Standard
+		}, options);
 
-  return this.each(function() {
-        var editor = WysiHat.Editor.attach($(this));
-        var toolbar = new WysiHat.Toolbar(editor);
-        toolbar.initialize(editor);
-        toolbar.addButtonSet(options.buttons);
-  });
+	return this.each(function() {
+		var editor = WysiHat.Editor.attach($(this));
+		var toolbar = new WysiHat.Toolbar(editor);
+		toolbar.initialize(editor);
+		toolbar.addButtonSet(options);
+	});
 };
