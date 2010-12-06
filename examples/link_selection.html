@@ -21,9 +21,9 @@
     }
 
     $(document).ready(function() {
-      var editor = WysiHat.Editor.attach('content');
+      var editor = WysiHat.Editor.attach($('#content'));
       var toolbar = new WysiHat.Toolbar(editor);
-		toolbar.initialize(editor);
+			toolbar.initialize(editor);
 
       toolbar.addButton({
         label: "Link",
@@ -54,7 +54,7 @@
   }
 
   $(document).ready(function() {
-    var editor = WysiHat.Editor.attach('content');
+    var editor = WysiHat.Editor.attach($('#content'));
     var toolbar = new WysiHat.Toolbar(editor);
 		toolbar.initialize(editor);
 
