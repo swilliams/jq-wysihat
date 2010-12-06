@@ -111,8 +111,9 @@ WysiHat.Toolbar = function() {
   **/
   function createButtonElement(toolbar, options) {
     var button = $('<a class="" href="#"><span>' + options['label'] + '</span></a>');
-    button.addClass(options['name']);
-	button.addClass(options['cssClass'])
+    button.addClass("button");
+		button.addClass(options['name']);
+		button.addClass(options['cssClass']);
     toolbar.append(button);
 
     return button;
