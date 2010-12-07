@@ -148,6 +148,7 @@ WysiHat.Toolbar = function() {
     $(element).click(function() {
       handler(editor);
       //event.stop();
+      $(document.activeElement).trigger("selection:change");
       return false;
     });
   }
