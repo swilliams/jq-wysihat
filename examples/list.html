@@ -6,14 +6,14 @@
   <link rel="stylesheet" href="editor.css" type="text/css" />
 
   <script type="text/javascript" src="../dist/jquery-1.4.2.min.js"></script>
-  <script type="text/javascript" src="../dist/wysihat.js"></script>
+  <script type="text/javascript" src="../dist/jq-wysihat.js"></script>
 
   <script type="text/javascript" charset="utf-8">
     $(document).ready(function() {
-      var editor = WysiHat.Editor.attach('content');
+			var editor = WysiHat.Editor.attach($('#content'));
       var toolbar = new WysiHat.Toolbar(editor);
-		toolbar.initialize(editor);
-
+			toolbar.initialize(editor);
+		
       toolbar.addButton({
         label: "Ordered List",
         handler: function(editor) { return editor.toggleOrderedList(); }

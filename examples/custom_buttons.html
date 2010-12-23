@@ -6,25 +6,25 @@
   <link rel="stylesheet" href="editor.css" type="text/css" />
 
   <script type="text/javascript" src="../dist/jquery-1.4.2.min.js"></script>
-  <script type="text/javascript" src="../dist/wysihat.js"></script>
+  <script type="text/javascript" src="../dist/jq-wysihat.js"></script>
 
   <script type="text/javascript" charset="utf-8">
     $(document).ready(function() {
-      var editor = WysiHat.Editor.attach('content');
+      var editor = WysiHat.Editor.attach($('#content'));
       var toolbar = new WysiHat.Toolbar(editor);
-	  toolbar.initialize(editor);
+	  	toolbar.initialize(editor);
 
       toolbar.addButton({ name: 'bold', label: "Strong" });
-
+      
       toolbar.addButton({ label: "Underline" });
-
+      
       toolbar.addButton({
         name: 'em',
         label: "Emphasis",
         handler: function(editor) { editor.italicSelection(); },
         query: function(editor) { return editor.italicSelected(); }
       });
-
+     
       // Hide our error message if the editor loads fine
       $('#error').hide();
     });
@@ -37,10 +37,10 @@
   <p>This examples shows how to add custom buttons and actions with the built-in toolbar class.</p>
 
 <code><pre>
-  $(document).ready(function() {
-    var editor = WysiHat.Editor.attach('content');
+  	$(document).ready(function() {
+    var editor = WysiHat.Editor.attach($('#content'));
     var toolbar = new WysiHat.Toolbar(editor);
-	toolbar.initialize(editor);
+  	toolbar.initialize(editor);
 
     // The name will be used for the div class and the command to execute
     // The label is the text you see for the button.
