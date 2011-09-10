@@ -40,7 +40,7 @@ WysiHat.Formatting = (function() {
         convertDivsToParagraphs();
       }
 
-      return container.innerHTML;
+      return container.html();
     },
 
     getApplicationMarkupFrom: function(element) {
