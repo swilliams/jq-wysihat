@@ -20,7 +20,7 @@ JQ-WysiHat currently supports:
 
 ### Dependencies
 
-* jQuery 1.4.2 or later (http://jquery.com/) although older versions will probably work fine, they just haven't been tested.
+* jQuery 1.6.3 or later (http://jquery.com/) although older versions will probably work fine, they just haven't been tested.
 
 ## Documentation
 
