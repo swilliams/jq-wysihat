@@ -1,6 +1,6 @@
 $(document).ready(function() {
   var $doc = $(document);
-  if ('onselectionchange' in document && !$.browser.webkit) {
+  if ('selection' in document && 'onselectionchange' in document) {
     var selectionChangeHandler = function() {
       var range   = document.selection.createRange();
       var element = range.parentElement();
