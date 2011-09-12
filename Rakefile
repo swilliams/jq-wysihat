@@ -1,6 +1,5 @@
 require 'rake'
 require 'rake/clean'
-require 'rake/rdoctask'
 require 'rake/testtask'
 
 CLEAN.include 'test/unit/tmp'
@@ -42,14 +41,10 @@ file 'doc' => Dir['src/**/*'] + [:sprockets, :pdoc] do
   require 'tempfile'
 
   Tempfile.open('pdoc') do |temp|
-    secretary = Sprockets::Secretary.new(
-      :root         => WYSIHAT_SRC_DIR,
-      :load_path    => [WYSIHAT_SRC_DIR],
-      :source_files => ["wysihat.js"],
-      :strip_comments => false
-    )
+    env = Sprockets::Environment.new
+    env.prepend_path WYSIHAT_SRC_DIR
+    File.open(temp.path, 'w') {|f| f.write(env['wysihat.js'].to_s) }
 
-    secretary.concatenation.save_to(temp.path)
     PDoc::Runner.new(temp.path, :destination => "#{WYSIHAT_ROOT}/doc").run
   end
 end
