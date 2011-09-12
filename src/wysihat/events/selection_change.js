@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  var $doc = $(document);
+  var doc = $(document);
   if ('selection' in document && 'onselectionchange' in document) {
     var selectionChangeHandler = function() {
       var range   = document.selection.createRange();
@@ -7,7 +7,7 @@ $(document).ready(function() {
       $(element).trigger("selection:change");
     }
 
-    $doc.bind("selectionchange", selectionChangeHandler);
+    doc.bind("selectionchange", selectionChangeHandler);
   } else {
     var previousRange;
 
@@ -36,7 +36,7 @@ $(document).ready(function() {
       }
     };
 
-    $doc.mouseup(selectionChangeHandler);
-    $doc.keyup(selectionChangeHandler);
+    doc.mouseup(selectionChangeHandler);
+    doc.keyup(selectionChangeHandler);
   }
 });

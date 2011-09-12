@@ -12,13 +12,13 @@ WYSIHAT_SRC_DIR = File.join(WYSIHAT_ROOT, 'src')
 
 # Distribution
 
-file 'dist/jquery-1.6.3.min.js' => :sprockets do |t|
+file 'dist/jquery.js' => :sprockets do |t|
   jquery_src_dir = "#{WYSIHAT_ROOT}/vendor/jquery"
 
   env = Sprockets::Environment.new
   env.prepend_path jquery_src_dir
   FileUtils.mkdir_p File.dirname(t.name)
-  File.open(t.name, 'w') {|f| f.write(env['jquery-1.6.3.min.js'].to_s) }
+  File.open(t.name, 'w') {|f| f.write(env['jquery-1.6.3.js'].to_s) }
 end
 
 file 'dist/jq-wysihat.js' => Dir['src/**/*'] + [:sprockets] do |t|
@@ -31,7 +31,7 @@ end
 task :default => :dist
 
 desc "Builds the distribution."
-task :dist => ['dist/jquery-1.6.3.min.js', 'dist/jq-wysihat.js']
+task :dist => ['dist/jquery.js', 'dist/jq-wysihat.js']
 
 
 # Documentation

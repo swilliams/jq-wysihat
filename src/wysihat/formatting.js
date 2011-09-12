@@ -69,7 +69,7 @@ WysiHat.Formatting = (function() {
           // if it's a block-level element and the line buffer is full, flush it
           if (isBlockElement(tagName)) {
             if (isEmptyParagraph(node)) {
-              accumulate($("<br />"));
+              accumulate($("<br />").get(0));
             }
 
             flush();
@@ -173,11 +173,11 @@ WysiHat.Formatting = (function() {
         var element = node.cloneNode(false);
 
         if (tagName == "span") {
-          if ($(node).getStyle("fontWeight") == "bold") {
-            element = $("<strong></strong>");
+          if ($(node).css('fontWeight') == "bold") {
+            element = $("<strong></strong>").get(0);
 
-          } else if ($(node).getStyle("fontStyle") == "italic") {
-            element = $("<em></em>");
+          } else if ($(node).css('fontStyle') == "italic") {
+            element = $("<em></em>").get(0);
           }
         }
 
@@ -208,9 +208,9 @@ WysiHat.Formatting = (function() {
 
       function createLine() {
         if (mode == ACCUMULATING_LINE) {
-          return $("<div></div>");
+          return $("<div></div>").get(0);
         } else if (mode == ACCUMULATING_LIST_ITEM) {
-          return $("<li></li>");
+          return $("<li></li>").get(0);
         }
       }
 
@@ -220,7 +220,7 @@ WysiHat.Formatting = (function() {
         return list;
       }
 
-      result = container = $("<div></div>");
+      result = container = $("<div></div>").get(0);
       walk(element.childNodes);
       flush();
       return result.innerHTML;

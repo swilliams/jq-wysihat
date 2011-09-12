@@ -45,8 +45,8 @@
     }
   </style>
 
-  <script type="text/javascript" src="../dist/prototype.js"></script>
-  <script type="text/javascript" src="../dist/wysihat.js"></script>
+  <script type="text/javascript" src="../dist/jquery.js"></script>
+  <script type="text/javascript" src="../dist/jq-wysihat.js"></script>
 
   <script type="text/javascript" charset="utf-8">
     var textarea, editor;
@@ -62,32 +62,33 @@
       }
     }
 
-    document.observe("dom:loaded", function() {
-      editor = $('note_body_editor');
-      Object.extend(editor, WysiHat.Commands);
-
+    $(function() {
+      editor = WysiHat.Editor.attach($('#note_body'));
+      jQuery.extend(editor, WysiHat.Commands);
       var toolbar = new WysiHat.Toolbar(editor);
-      toolbar.addButtonSet(WysiHat.Toolbar.ButtonSets.Basic);
+      toolbar.initialize(editor);
+
+      toolbar.addButtonSet({buttons: WysiHat.Toolbar.ButtonSets.Basic});
 
       toolbar.addButton({
         label: "Link",
         handler: function(editor) { return editor.promptLinkSelection(); }
       });
 
-      editor.observe("field:change", function(event) {
-        $('note_body').setValue(WysiHat.Formatting.getApplicationMarkupFrom(editor));
-        $('note_body_raw').setValue(event.element().innerHTML);
-      });
+      setInterval(function() {
+        $('#note_body').val(WysiHat.Formatting.getApplicationMarkupFrom(editor.get(0)));
+        $('#note_body_raw').val(editor.html());
+      }, 250);
 
-      editor.observe("paste", function(event) {
-        (function() {
+      //editor.observe("paste", function(event) {
+        //(function() {
           // window.getSelection().setBookmark();
           // editor.innerHTML = editor.innerHTML;
           // window.getSelection().moveToBookmark();
-        }).defer();
-      });
+        //}).defer();
+      //});
 
-      $('note_body').show();
+      $('#note_body').show();
     });
   </script>
 </head>
