@@ -7,7 +7,7 @@ JQ-WysiHat is a WYSIWYG JavaScript framework that provides an extensible
 foundation to design your own rich text editor. WysiHat stays out of your
 way and leaves the UI design to you.
 
-The original version of WysiHat was designed to run on Prototype. This fork of it was ported to run on jQuery (used against 1.4.2).
+The original version of WysiHat was designed to run on Prototype. This fork of it was ported to run on jQuery (used against 1.6.3).
 
 ### Support platforms
 

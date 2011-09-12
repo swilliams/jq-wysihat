@@ -1,5 +1,5 @@
-//= require "ierange"
-//= require "range"
+//= require "./ierange"
+//= require "./range"
 
 if ($.browser.msie) {
   jQuery.extend(Selection.prototype, (function() {

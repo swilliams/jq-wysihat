@@ -1,4 +1,4 @@
-//= require "selection"
+//= require "./selection"
 
 if ($.browser.msie) {
   jQuery.extend(Selection.prototype, (function() {

@@ -1,4 +1,4 @@
-//= require "ierange"
+//= require "./ierange"
 
 jQuery.extend(Range.prototype, (function() {
   function beforeRange(range) {

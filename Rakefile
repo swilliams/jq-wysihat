@@ -16,25 +16,17 @@ WYSIHAT_SRC_DIR = File.join(WYSIHAT_ROOT, 'src')
 file 'dist/jquery-1.6.3.min.js' => :sprockets do |t|
   jquery_src_dir = "#{WYSIHAT_ROOT}/vendor/jquery"
 
-  secretary = Sprockets::Secretary.new(
-    :root         => jquery_src_dir,
-    :load_path    => [jquery_src_dir],
-    :source_files => ["jquery-1.6.3.min.js"]
-  )
-
+  env = Sprockets::Environment.new
+  env.prepend_path jquery_src_dir
   FileUtils.mkdir_p File.dirname(t.name)
-  secretary.concatenation.save_to(t.name)
+  File.open(t.name, 'w') {|f| f.write(env['jquery-1.6.3.min.js'].to_s) }
 end
 
 file 'dist/jq-wysihat.js' => Dir['src/**/*'] + [:sprockets] do |t|
-  secretary = Sprockets::Secretary.new(
-    :root         => WYSIHAT_SRC_DIR,
-    :load_path    => [WYSIHAT_SRC_DIR],
-    :source_files => ["wysihat.js"]
-  )
-
+  env = Sprockets::Environment.new
+  env.prepend_path WYSIHAT_SRC_DIR
   FileUtils.mkdir_p File.dirname(t.name)
-  secretary.concatenation.save_to(t.name)
+  File.open(t.name, 'w') {|f| f.write(env['wysihat.js'].to_s) }
 end
 
 task :default => :dist
