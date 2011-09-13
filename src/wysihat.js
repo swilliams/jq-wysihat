@@ -15,6 +15,7 @@
 
 // Set wysihat as a jQuery plugin
 $.fn.wysihat = function(options) {
+  options = typeof(options) != 'undefined' ? options : [];
   options = WysiHat.Toolbar.ButtonSets.Standard.concat(options);
 
   return this.each(function() {
