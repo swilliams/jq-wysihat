@@ -49,26 +49,25 @@
   <script type="text/javascript" src="../dist/jq-wysihat.js"></script>
 
   <script type="text/javascript" charset="utf-8">
-    var textarea, editor;
-
-    WysiHat.Commands.promptLinkSelection = function() {
-      if (this.linkSelected()) {
-        if (confirm("Remove link?"))
-          this.unlinkSelection();
-      } else {
-        var value = prompt("Enter a URL", "http://www.google.com/");
-        if (value)
-          this.linkSelection(value);
-      }
-    }
-
     $(function() {
+      var textarea, editor;
+
+      WysiHat.Commands.promptLinkSelection = function() {
+        if (this.linkSelected()) {
+          if (confirm("Remove link?"))
+            this.unlinkSelection();
+        } else {
+          var value = prompt("Enter a URL", "http://www.google.com/");
+          if (value)
+            this.linkSelection(value);
+        }
+      }
+
       editor = WysiHat.Editor.attach($('#note_body'));
-      jQuery.extend(editor, WysiHat.Commands);
       var toolbar = new WysiHat.Toolbar(editor);
       toolbar.initialize(editor);
 
-      toolbar.addButtonSet({buttons: WysiHat.Toolbar.ButtonSets.Basic});
+      toolbar.addButtonSet(WysiHat.Toolbar.ButtonSets.Basic);
 
       toolbar.addButton({
         label: "Link",
@@ -79,16 +78,6 @@
         $('#note_body').val(WysiHat.Formatting.getApplicationMarkupFrom(editor.get(0)));
         $('#note_body_raw').val(editor.html());
       }, 250);
-
-      //editor.observe("paste", function(event) {
-        //(function() {
-          // window.getSelection().setBookmark();
-          // editor.innerHTML = editor.innerHTML;
-          // window.getSelection().moveToBookmark();
-        //}).defer();
-      //});
-
-      $('#note_body').show();
     });
   </script>
 </head>

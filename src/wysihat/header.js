@@ -14,3 +14,5 @@
  * WysiHat
 **/
 var WysiHat = {};
+
+(function($) {

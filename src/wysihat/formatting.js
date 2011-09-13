@@ -16,20 +16,20 @@ WysiHat.Formatting = (function() {
       }
 
       function convertStrongsToSpans() {
-        container.find("strong").each(function(element) {
+        container.find("strong").each(function(index, element) {
           spanify(element, "font-weight: bold");
         });
       }
 
       function convertEmsToSpans() {
-        container.find("em").each(function(element) {
+        container.find("em").each(function(index, element) {
           spanify(element, "font-style: italic");
         });
       }
 
       function convertDivsToParagraphs() {
-        container.find("div").each(function(element) {
-          element.replaceWith("<p>" + element.innerHTML + "</p>");
+        container.find("div").each(function(index, element) {
+          $(element).replaceWith("<p>" + element.innerHTML + "</p>");
         });
       }
 
@@ -52,13 +52,13 @@ WysiHat.Formatting = (function() {
         for (i = 0; i < length; i++) {
           node = nodes[i];
 
-          if (node.nodeType == Node.ELEMENT_NODE) {
+          if (node.nodeType == 1) {
             tagName = node.tagName.toLowerCase();
             open(tagName, node);
             walk(node.childNodes);
             close(tagName);
 
-          } else if (node.nodeType == Node.TEXT_NODE) {
+          } else if (node.nodeType == 3) {
             read(node.nodeValue);
           }
         }

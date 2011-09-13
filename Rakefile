@@ -18,7 +18,7 @@ file 'dist/jquery.js' => :sprockets do |t|
   env = Sprockets::Environment.new
   env.prepend_path jquery_src_dir
   FileUtils.mkdir_p File.dirname(t.name)
-  File.open(t.name, 'w') {|f| f.write(env['jquery-1.6.3.js'].to_s) }
+  File.open(t.name, 'w') {|f| f.write(env['jquery-1.6.4.js'].to_s) }
 end
 
 file 'dist/jq-wysihat.js' => Dir['src/**/*'] + [:sprockets] do |t|

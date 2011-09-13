@@ -1,12 +1,12 @@
 //= require "./ierange"
 //= require "./range"
 
-if ($.browser.msie) {
+if (jQuery.browser.msie && jQuery.browser.version < 9.0) {
   jQuery.extend(Selection.prototype, (function() {
     // TODO: More robust getNode
     function getNode() {
       var range = this._document.selection.createRange();
-      return $(range.parentElement());
+      return jQuery(range.parentElement());
     }
 
     // TODO: IE selectNode should work with range.selectNode

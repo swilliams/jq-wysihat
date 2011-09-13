@@ -12,7 +12,10 @@ WysiHat.Editor = {
   attach: function(textarea) {
     var id = textarea.attr('id') + '_editor';
     var editArea = $('#' + id);
-    if (editArea.length) { return editArea; }
+    if (editArea.length) {
+      jQuery.extend(editArea, WysiHat.Commands);
+      return editArea;
+    }
 
     editArea = $('<div id="' + id + '" class="editor" contentEditable="true"></div>');
 

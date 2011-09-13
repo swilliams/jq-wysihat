@@ -53,8 +53,8 @@ WysiHat.Toolbar = function() {
    *
    *  Adds a button set to the toolbar.
   **/
-  function addButtonSet(options) {
-    $(options.buttons).each(function(index, button){
+  function addButtonSet(set) {
+    $(set).each(function(index, button){
       addButton(button);
     });
   }
