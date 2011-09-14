@@ -74,6 +74,8 @@
         handler: function(editor) { return editor.promptLinkSelection(); }
       });
 
+      $('#note_body').show();
+
       setInterval(function() {
         $('#note_body').val(WysiHat.Formatting.getApplicationMarkupFrom(editor.get(0)));
         $('#note_body_raw').val(editor.html());

@@ -9,25 +9,24 @@ WysiHat.Editor = {
    *
    *  Creates a new editor for the textarea.
   **/
-  attach: function(textarea) {
-    var id = textarea.attr('id') + '_editor';
-    var editArea = $('#' + id);
-    if (editArea.length) {
-      jQuery.extend(editArea, WysiHat.Commands);
-      return editArea;
+  attach: function($textarea) {
+    var id = $textarea.attr('id') + '_editor';
+    var $editArea = $textarea.siblings('#' + id).first();
+
+    if ($editArea.length == 0) {
+      $editArea = $('<div id="' + id + '" class="editor" contentEditable="true"></div>');
+
+      $textarea.before($editArea);
     }
 
-    editArea = $('<div id="' + id + '" class="editor" contentEditable="true"></div>');
+    $editArea.html(WysiHat.Formatting.getBrowserMarkupFrom($textarea.val()));
 
-    editArea.html(WysiHat.Formatting.getBrowserMarkupFrom(textarea.val()));
+    jQuery.extend($editArea, WysiHat.Commands);
 
-    jQuery.extend(editArea, WysiHat.Commands);
-
-    textarea.before(editArea);
-    textarea.hide();
+    $textarea.hide();
 
     // WysiHat.BrowserFeatures.run()
 
-    return editArea;
+    return $editArea;
   }
 };

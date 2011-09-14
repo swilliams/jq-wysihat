@@ -243,8 +243,8 @@ WysiHat.Toolbar.ButtonSets = {};
 **/
 WysiHat.Toolbar.ButtonSets.Basic = [
   { label: "Bold" },
-  { label: "Underline" },
-  { label: "Italic" }
+  { label: "Italic" },
+  { label: "Underline" }
 ];
 
 /**
@@ -255,6 +255,6 @@ WysiHat.Toolbar.ButtonSets.Basic = [
 WysiHat.Toolbar.ButtonSets.Standard = [
   { label: "Bold", cssClass: 'toolbar_button' },
   { label: "Italic", cssClass: 'toolbar_button' },
-  { label: "Strikethrough", cssClass: 'toolbar_button' },
-  { label: "Bullets", cssClass: 'toolbar_button', handler: function(editor) { return editor.toggleUnorderedList(); } }
+  { label: "Bullets", cssClass: 'toolbar_button', handler: function(editor) { return editor.toggleUnorderedList(); } },
+  { label: "Numbers", cssClass: 'toolbar_button', handler: function(editor) { return editor.toggleOrderedList(); } }
 ];
