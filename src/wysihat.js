@@ -14,16 +14,21 @@
 //= require "./wysihat/toolbar"
 
 // Set wysihat as a jQuery plugin
-$.fn.wysihat = function(options) {
-  options = typeof(options) != 'undefined' ? options : [];
-  options = WysiHat.Toolbar.ButtonSets.Standard.concat(options);
+$.fn.wysihat = function(buttons) {
+  buttons = typeof(buttons) == 'undefined' ? WysiHat.Toolbar.ButtonSets.Basic : buttons;
 
-  return this.each(function() {
-    var editor = WysiHat.Editor.attach($(this));
-    var toolbar = new WysiHat.Toolbar(editor);
-    toolbar.initialize(editor);
-    toolbar.addButtonSet(options);
+  var result;
+
+  this.each(function() {
+    var $editor = WysiHat.Editor.attach($(this));
+    var toolbar = new WysiHat.Toolbar($editor);
+    toolbar.initialize($editor);
+    toolbar.addButtonSet(buttons);
+    $editor.toolbar = toolbar;
+    if (result) result.add($editor); else result = $editor;
   });
+
+  return result;
 };
 
 })(jQuery);

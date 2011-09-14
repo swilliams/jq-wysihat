@@ -253,8 +253,9 @@ WysiHat.Toolbar.ButtonSets.Basic = [
  * The most common set of buttons that I will be using.
 **/
 WysiHat.Toolbar.ButtonSets.Standard = [
-  { label: "Bold", cssClass: 'toolbar_button' },
-  { label: "Italic", cssClass: 'toolbar_button' },
-  { label: "Bullets", cssClass: 'toolbar_button', handler: function(editor) { return editor.toggleUnorderedList(); } },
-  { label: "Numbers", cssClass: 'toolbar_button', handler: function(editor) { return editor.toggleOrderedList(); } }
+  { label: "Bold"},
+  { label: "Italic"},
+  { label: "Underline"},
+  { label: "Bullets", handler: function(editor) { return editor.toggleUnorderedList(); } },
+  { label: "Numbers", handler: function(editor) { return editor.toggleOrderedList(); } }
 ];

@@ -50,7 +50,7 @@
 
   <script type="text/javascript" charset="utf-8">
     $(function() {
-      var textarea, editor;
+      var editor;
 
       WysiHat.Commands.promptLinkSelection = function() {
         if (this.linkSelected()) {
@@ -63,16 +63,14 @@
         }
       }
 
-      editor = WysiHat.Editor.attach($('#note_body'));
-      var toolbar = new WysiHat.Toolbar(editor);
-      toolbar.initialize(editor);
+      var buttons = WysiHat.Toolbar.ButtonSets.Standard.concat([
+        {
+          label: "Link",
+          handler: function(editor) { return editor.promptLinkSelection(); }
+        }
+      ]);
 
-      toolbar.addButtonSet(WysiHat.Toolbar.ButtonSets.Standard);
-
-      toolbar.addButton({
-        label: "Link",
-        handler: function(editor) { return editor.promptLinkSelection(); }
-      });
+      editor = $('#note_body').wysihat(buttons);
 
       $('#note_body').show();
 

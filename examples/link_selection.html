@@ -9,23 +9,23 @@
   <script type="text/javascript" src="../dist/jq-wysihat.js"></script>
 
   <script type="text/javascript" charset="utf-8">
-    WysiHat.Commands.promptLinkSelection = function() {
-      if (this.linkSelected()) {
-        if (confirm("Remove link?"))
-          this.unlinkSelection();
-      } else {
-        var value = prompt("Enter a URL", "http://www.google.com/");
-        if (value)
-          this.linkSelection(value);
-      }
-    }
-
     $(function() {
-      var editor = WysiHat.Editor.attach($('#content'));
-      var toolbar = new WysiHat.Toolbar(editor);
-      toolbar.initialize(editor);
+      var editor;
 
-      toolbar.addButton({
+      WysiHat.Commands.promptLinkSelection = function() {
+        if (this.linkSelected()) {
+          if (confirm("Remove link?"))
+            this.unlinkSelection();
+        } else {
+          var value = prompt("Enter a URL", "http://www.google.com/");
+          if (value)
+            this.linkSelection(value);
+        }
+      }
+
+      editor = $('#content').wysihat();
+
+      editor.toolbar.addButton({
         label: "Link",
         handler: function(editor) { return editor.promptLinkSelection(); }
       });
@@ -42,27 +42,26 @@
   <p>This example shows you how to create a simple UI for linking and unlinking selections</p>
 
 <code><pre>
-  WysiHat.Commands.promptLinkSelection = function() {
-    if (this.linkSelected()) {
-      if (confirm("Remove link?"))
-        this.unlinkSelection();
-    } else {
-      var value = prompt("Enter a URL", "http://www.google.com/");
-      if (value)
-        this.linkSelection(value);
+  $(function() {
+    var editor;
+    
+    WysiHat.Commands.promptLinkSelection = function() {
+      if (this.linkSelected()) {
+        if (confirm("Remove link?"))
+          this.unlinkSelection();
+      } else {
+        var value = prompt("Enter a URL", "http://www.google.com/");
+        if (value)
+          this.linkSelection(value);
+      }
     }
-  }
 
-  $(document).ready(function() {
-    var editor = WysiHat.Editor.attach($('#content'));
-    var toolbar = new WysiHat.Toolbar(editor);
-		toolbar.initialize(editor);
+    editor = $('#content').wysihat();
 
-    toolbar.addButton({
+    editor.toolbar.addButton({
       label: "Link",
       handler: function(editor) { return editor.promptLinkSelection(); }
     });
-
   });
 </pre></code>
 
