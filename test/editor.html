@@ -67,7 +67,7 @@
       var toolbar = new WysiHat.Toolbar(editor);
       toolbar.initialize(editor);
 
-      toolbar.addButtonSet(WysiHat.Toolbar.ButtonSets.Basic);
+      toolbar.addButtonSet(WysiHat.Toolbar.ButtonSets.Standard);
 
       toolbar.addButton({
         label: "Link",
@@ -77,7 +77,7 @@
       $('#note_body').show();
 
       setInterval(function() {
-        $('#note_body').val(WysiHat.Formatting.getApplicationMarkupFrom(editor.get(0)));
+        $('#note_body').val(WysiHat.Formatting.getApplicationMarkupFrom(editor));
         $('#note_body_raw').val(editor.html());
       }, 250);
     });

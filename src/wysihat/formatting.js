@@ -43,7 +43,8 @@ WysiHat.Formatting = (function() {
       return container.html();
     },
 
-    getApplicationMarkupFrom: function(element) {
+    getApplicationMarkupFrom: function($element) {
+      var element = $element.get(0);
       var mode = ACCUMULATING_LINE, result, container, line, lineContainer, previousAccumulation;
 
       function walk(nodes) {
@@ -194,7 +195,7 @@ WysiHat.Formatting = (function() {
       }
 
       function getPreviouslyAccumulatedTagName() {
-        if (previousAccumulation && previousAccumulation.nodeType == Node.ELEMENT_NODE) {
+        if (previousAccumulation && previousAccumulation.nodeType == 1) {
           return previousAccumulation.tagName.toLowerCase();
         }
       }
@@ -215,7 +216,7 @@ WysiHat.Formatting = (function() {
       }
 
       function insertList(tagName) {
-        var list = new Element(tagName);
+        var list = $('<' + tagName + '></' + tagName + '>').get(0);
         result.appendChild(list);
         return list;
       }
