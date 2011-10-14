@@ -1,7 +1,7 @@
 //= require "selection"
 
 if ($.browser.msie) {
-  jQuery.extend(Selection.prototype, (function() {
+  $.extend(Selection.prototype, (function() {
     function setBookmark() {
       var bookmark = $('#bookmark');
       if (bookmark) bookmark.remove();
@@ -32,7 +32,7 @@ if ($.browser.msie) {
     }
   })());
 } else {
-  jQuery.extend(Selection.prototype, (function() {
+  $.extend(Selection.prototype, (function() {
     function setBookmark() {
       var bookmark = $('#bookmark');
       if (bookmark) bookmark.remove();

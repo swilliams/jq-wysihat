@@ -2,7 +2,7 @@
 //= require "range"
 
 if ($.browser.msie) {
-  jQuery.extend(Selection.prototype, (function() {
+  $.extend(Selection.prototype, (function() {
     // TODO: More robust getNode
     function getNode() {
       var range = this._document.selection.createRange();
@@ -28,7 +28,7 @@ if ($.browser.msie) {
     Selection.prototype = window.getSelection().__proto__;
   }
 
-  jQuery.extend(Selection.prototype, (function() {
+  $.extend(Selection.prototype, (function() {
     function getNode() {
       if (this.rangeCount > 0)
         return this.getRangeAt(0).getNode();

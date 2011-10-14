@@ -57,6 +57,6 @@
     $element.observeFrameContentLoaded();
   }
 
-  jQuery.fn.observeFrameContentLoaded = observeFrameContentLoaded;
-  jQuery.fn.onFrameLoaded = onFrameLoaded;
+  $.fn.observeFrameContentLoaded = observeFrameContentLoaded;
+  $.fn.onFrameLoaded = onFrameLoaded;
 })();
