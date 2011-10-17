@@ -19,7 +19,7 @@ WysiHat.Editor = {
 
     $editArea.html(WysiHat.Formatting.getBrowserMarkupFrom($textarea.val()));
 
-    jQuery.extend($editArea, WysiHat.Commands);
+    $.extend($editArea, WysiHat.Commands);
 
     $textarea.before($editArea);
     $textarea.hide();
