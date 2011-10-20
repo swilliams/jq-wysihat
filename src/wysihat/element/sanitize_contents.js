@@ -55,7 +55,7 @@
     }
   }
 
-  jQuery.fn.sanitizeContents = function(options) {
+  $.fn.sanitizeContents = function(options) {
     var element = $(this);
     var tagsToRemove = {};
     $.each((options.remove || "").split(","), function(tagName) {

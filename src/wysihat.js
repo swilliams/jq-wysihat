@@ -5,7 +5,8 @@
  *
  *  WysiHat is freely distributable under the terms of an MIT-style license.
  *--------------------------------------------------------------------------*/
-
+(function ($, window, undefined)
+{
 /**
  * == wysihat ==
 **/
@@ -47,3 +48,6 @@ $.fn.wysihat = function(options) {
 		toolbar.addButtonSet(options);
 	});
 };
+
+window.WysiHat = WysiHat;
+}(jQuery, this));
