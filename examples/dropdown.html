@@ -23,14 +23,23 @@
             label: 'Headers',
             options: [
                 { label: "Headers", val: '' },
-                { label: "H1", val: 'h1' },
-                { label: 'H2', val: 'h2' },
-                { label: 'H3', val: 'h3' }
+                { label: "H1", val: 'H1' },
+                { label: 'H2', val: 'H2' },
+                { label: 'H3', val: 'H3' }
                 ],
                 handler: function(editor, val) {
-                    alert('foo: ' + val);
+                    editor.headerSelection(val);
+                    },
+                query: function(editor) {
+                    return editor.headerSelected();
                 }
           });
+      toolbar.addButton({
+        name: 'em',
+        label: "Emphasis",
+        handler: function(editor) { editor.italicSelection(); },
+        query: function(editor) { return editor.italicSelected(); }
+      });
      
       // Hide our error message if the editor loads fine
       $('#error').hide();
