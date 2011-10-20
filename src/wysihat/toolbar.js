@@ -59,6 +59,17 @@ WysiHat.Toolbar = function() {
     });
   }
 
+  function addDropdown(options, handler) {
+    if (!options['name']) {
+      options['name'] = options['label'].toLowerCase();
+    }
+    var name = options['name'];
+    var select = createDropdownElement(element, options);
+
+    var handler = buttonHandler(name, options);
+    observeDropdownChange(select, handler);
+  }
+
   /**
    *  WysiHat.Toolbar#addButton(options[, handler]) -> undefined
    *  - options (Hash): Required options hash
@@ -120,6 +131,27 @@ WysiHat.Toolbar = function() {
   }
 
   /**
+   *  WysiHat.Toolbar#createDropdownElement(toolbar, options) 
+   *
+   *  Creates a dropdown element and inserts it into the toolbar container.
+   *
+   *  options.options contains the elements that go in the dropdown
+  **/ 
+  function createDropdownElement(toolbar, options) {
+    var optionTemplate = '<option value="KEY">VALUE</option>',
+        selectTemplate = '<select>OPTIONS</select>';
+        builder = '';
+    for (var i = 0; i < options.options.length; i++) {
+      var o = options.options[i];
+      builder += optionTemplate.replace('KEY', o.val).replace('VALUE', o.label);
+    };
+    var select = $('<select>' + builder + '</select>');
+    select.addClass(options['cssClass']);
+    toolbar.append(select);
+    return select;
+  }
+
+  /**
    *  WysiHat.Toolbar#buttonHandler(name, options) -> Function
    *  - name (String): Name of button command: 'bold', 'italic'
    *  - options (Hash): Options hash that pass from addButton
@@ -150,6 +182,14 @@ WysiHat.Toolbar = function() {
       //event.stop();
       $(document.activeElement).trigger("selection:change");
       return false;
+    });
+  }
+
+  function observeDropdownChange(element, handler) {
+    $(element).change(function() {
+      var selectedValue = $(this).val();
+      handler(editor, selectedValue);
+      $(document.activeElement).trigger("selection:change");
     });
   }
 
@@ -216,6 +256,7 @@ WysiHat.Toolbar = function() {
     createToolbarElement: createToolbarElement,
     addButtonSet:         addButtonSet,
     addButton:            addButton,
+    addDropdown:          addDropdown,
     createButtonElement:  createButtonElement,
     buttonHandler:        buttonHandler,
     observeButtonClick:   observeButtonClick,
