@@ -34,13 +34,6 @@
                     return editor.headerSelected();
                 }
           });
-      toolbar.addButton({
-        name: 'em',
-        label: "Emphasis",
-        handler: function(editor) { editor.italicSelection(); },
-        query: function(editor) { return editor.italicSelected(); }
-      });
-     
       // Hide our error message if the editor loads fine
       $('#error').hide();
     });
