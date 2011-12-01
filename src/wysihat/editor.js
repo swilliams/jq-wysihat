@@ -25,6 +25,10 @@ WysiHat.Editor = {
 
     $textarea.hide();
 
+    $textarea.closest('form').submit(function() {
+      $textarea.val(WysiHat.Formatting.getApplicationMarkupFrom($editArea));
+    });
+
     // WysiHat.BrowserFeatures.run()
 
     return $editArea;
