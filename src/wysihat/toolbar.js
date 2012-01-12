@@ -1,4 +1,4 @@
-//= require "events/selection_change"
+//= require "./events/selection_change"
 
 /** section: wysihat
  *  class WysiHat.Toolbar
@@ -53,8 +53,8 @@ WysiHat.Toolbar = function() {
    *
    *  Adds a button set to the toolbar.
   **/
-  function addButtonSet(options) {
-    $(options.buttons).each(function(index, button){
+  function addButtonSet(set) {
+    $(set).each(function(index, button){
       addButton(button);
     });
   }
@@ -284,8 +284,8 @@ WysiHat.Toolbar.ButtonSets = {};
 **/
 WysiHat.Toolbar.ButtonSets.Basic = [
   { label: "Bold" },
-  { label: "Underline" },
-  { label: "Italic" }
+  { label: "Italic" },
+  { label: "Underline" }
 ];
 
 /**
@@ -294,8 +294,9 @@ WysiHat.Toolbar.ButtonSets.Basic = [
  * The most common set of buttons that I will be using.
 **/
 WysiHat.Toolbar.ButtonSets.Standard = [
-  { label: "Bold", cssClass: 'toolbar_button' },
-  { label: "Italic", cssClass: 'toolbar_button' },
-  { label: "Strikethrough", cssClass: 'toolbar_button' },
-  { label: "Bullets", cssClass: 'toolbar_button', handler: function(editor) { return editor.toggleUnorderedList(); } }
+  { label: "Bold"},
+  { label: "Italic"},
+  { label: "Underline"},
+  { label: "Bullets", handler: function(editor) { return editor.toggleUnorderedList(); } },
+  { label: "Numbers", handler: function(editor) { return editor.toggleOrderedList(); } }
 ];

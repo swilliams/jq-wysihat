@@ -45,49 +45,39 @@
     }
   </style>
 
-  <script type="text/javascript" src="../dist/prototype.js"></script>
-  <script type="text/javascript" src="../dist/wysihat.js"></script>
+  <script type="text/javascript" src="../dist/jquery.js"></script>
+  <script type="text/javascript" src="../dist/jq-wysihat.js"></script>
 
   <script type="text/javascript" charset="utf-8">
-    var textarea, editor;
+    $(function() {
+      var editor;
 
-    WysiHat.Commands.promptLinkSelection = function() {
-      if (this.linkSelected()) {
-        if (confirm("Remove link?"))
-          this.unlinkSelection();
-      } else {
-        var value = prompt("Enter a URL", "http://www.google.com/");
-        if (value)
-          this.linkSelection(value);
+      WysiHat.Commands.promptLinkSelection = function() {
+        if (this.linkSelected()) {
+          if (confirm("Remove link?"))
+            this.unlinkSelection();
+        } else {
+          var value = prompt("Enter a URL", "http://www.google.com/");
+          if (value)
+            this.linkSelection(value);
+        }
       }
-    }
 
-    document.observe("dom:loaded", function() {
-      editor = $('note_body_editor');
-      Object.extend(editor, WysiHat.Commands);
+      var buttons = WysiHat.Toolbar.ButtonSets.Standard.concat([
+        {
+          label: "Link",
+          handler: function(editor) { return editor.promptLinkSelection(); }
+        }
+      ]);
 
-      var toolbar = new WysiHat.Toolbar(editor);
-      toolbar.addButtonSet(WysiHat.Toolbar.ButtonSets.Basic);
+      editor = $('#note_body').wysihat(buttons);
 
-      toolbar.addButton({
-        label: "Link",
-        handler: function(editor) { return editor.promptLinkSelection(); }
-      });
+      $('#note_body').show();
 
-      editor.observe("field:change", function(event) {
-        $('note_body').setValue(WysiHat.Formatting.getApplicationMarkupFrom(editor));
-        $('note_body_raw').setValue(event.element().innerHTML);
-      });
-
-      editor.observe("paste", function(event) {
-        (function() {
-          // window.getSelection().setBookmark();
-          // editor.innerHTML = editor.innerHTML;
-          // window.getSelection().moveToBookmark();
-        }).defer();
-      });
-
-      $('note_body').show();
+      setInterval(function() {
+        $('#note_body').val(WysiHat.Formatting.getApplicationMarkupFrom(editor));
+        $('#note_body_raw').val(editor.html());
+      }, 250);
     });
   </script>
 </head>

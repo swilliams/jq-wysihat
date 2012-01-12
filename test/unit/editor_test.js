@@ -1,6 +1,6 @@
 new Test.Unit.Runner({
   setup: function() {
-    this.textarea = $('content');
+    this.textarea = jQuery('#content');
     this.editor = WysiHat.Editor.attach(this.textarea);
     this.editor.focus();
   },
@@ -13,20 +13,19 @@ new Test.Unit.Runner({
   testInsertHTML: function() {
     var runner = this;
 
-    this.editor.insertHTML("<p>Hello.</p>");
-    runner.assertEqual("<p>Hello.</p>", this.editor.innerHTML);
+    this.editor.html("<p>Hello.</p>");
+    runner.assertEqual("<p>Hello.</p>", this.editor.html());
   },
 
   testBoldSelection: function() {
     var runner = this;
 
-    // this.editor.insertHTML("<p>Hello.</p>");
-    this.editor.innerHTML = '<p id="hello">Hello.</p>'.formatHTMLInput();
+    this.editor.html('<p id="hello">Hello.</p>');
 
-    window.getSelection().selectNode(this.editor.down('#hello'));
+    window.getSelection().selectNode(this.editor.find('#hello'));
     this.editor.boldSelection();
 
     runner.assert(this.editor.boldSelected());
-    runner.assertEqual('<p id="hello"><strong>Hello.</strong></p>', this.editor.innerHTML);
+    runner.assertEqual('<p id="hello"><strong>Hello.</strong></p>', this.editor.html());
   }
 });

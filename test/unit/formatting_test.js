@@ -3,48 +3,57 @@ function getBrowserMarkupFrom(html) {
 }
 
 function getApplicationMarkupFrom(html) {
-  var element = new Element("div").update(html);
-  return WysiHat.Formatting.getApplicationMarkupFrom(element);
+  var element = jQuery("<div></div>").html(html);
+  return WysiHat.Formatting.getApplicationMarkupFrom(element.get(0));
 }
 
 new Test.Unit.Runner({
   testGetBrowserMarkupFrom: function() {
     var runner = this;
 
-    if (Prototype.Browser.WebKit) {
+    if (jQuery.browser.webkit) {
       runner.assertEqual(
         '<div>Here is some basic text</div><div>with a line break.</div><div class="paragraph_break"><br></div><div>And maybe another paragraph</div>',
         getBrowserMarkupFrom('<div>Here is some basic text</div><div>with a line break.</div><div class=\"paragraph_break\"><br /></div><div>And maybe another paragraph</div>')
       );
       runner.assertEqual(
-        '<div>Some <span style="font-weight: bold" class="Apple-style-span">bold</span> text</div>"',
-        getBrowserMarkupFrom('<div>Some <strong>bold</strong> text</div>"')
+        '<div>Some <span style="font-weight: bold" class="Apple-style-span">bold</span> text</div>',
+        getBrowserMarkupFrom('<div>Some <strong>bold</strong> text</div>')
       );
-    } else if (Prototype.Browser.Gecko) {
+    } else if (jQuery.browser.mozilla) {
       runner.assertEqual(
         '<div>Here is some basic text</div><div>with a line break.</div><div class="paragraph_break"><br></div><div>And maybe another paragraph</div>',
         getBrowserMarkupFrom('<div>Here is some basic text</div><div>with a line break.</div><div class=\"paragraph_break\"><br /></div><div>And maybe another paragraph</div>')
       );
       runner.assertEqual(
-        '<div>Some <span style="font-weight: bold;" class="Apple-style-span">bold</span> text</div>"',
-        getBrowserMarkupFrom('<div>Some <strong>bold</strong> text</div>"')
+        '<div>Some <span style="font-weight: bold;" class="Apple-style-span">bold</span> text</div>',
+        getBrowserMarkupFrom('<div>Some <strong>bold</strong> text</div>')
       );
-    } else if (Prototype.Browser.IE) {
+    } else if (jQuery.browser.msie && jQuery.browser.version >= 9.0) {
+      runner.assertEqual(
+        '<p>Here is some basic text</p><p>with a line break.</p><p><br></p><p>And maybe another paragraph</p>',
+        getBrowserMarkupFrom('<div>Here is some basic text</div><div>with a line break.</div><div class=\"paragraph_break\"><br /></div><div>And maybe another paragraph</div>')
+      );
+      runner.assertEqual(
+        '<p>Some <strong>bold</strong> text</p>',
+        getBrowserMarkupFrom('<div>Some <strong>bold</strong> text</div>')
+      );
+    } else if (jQuery.browser.msie && jQuery.browser.version < 9.0) {
       runner.assertEqual(
         '<P>Here is some basic text</P>\r\n<P>with a line break.</P>\r\n<P><BR></P>\r\n<P>And maybe another paragraph</P>',
         getBrowserMarkupFrom('<div>Here is some basic text</div><div>with a line break.</div><div class=\"paragraph_break\"><br /></div><div>And maybe another paragraph</div>')
       );
       runner.assertEqual(
-        '<P>Some <STRONG>bold</STRONG> text</P>"',
-        getBrowserMarkupFrom('<div>Some <strong>bold</strong> text</div>"')
+        '<P>Some <STRONG>bold</STRONG> text</P>',
+        getBrowserMarkupFrom('<div>Some <strong>bold</strong> text</div>')
       );
-   }
+    }
   },
 
   testGetApplicationMarkupFrom: function() {
     var runner = this;
 
-    if (Prototype.Browser.WebKit) {
+    if (jQuery.browser.webkit) {
       runner.assertEqual(
         '<div>Here is some basic text</div><div>with a line break.</div><div><br></div><div>And maybe another paragraph</div>',
         getApplicationMarkupFrom('<div>Here is some basic text</div><div>with a line break.</div><div><br></div><div>And maybe another paragraph</div>')
@@ -121,7 +130,7 @@ new Test.Unit.Runner({
         '<ul><li>one</li><li>two</li></ul><div>not</div>',
         getApplicationMarkupFrom('<ul><li>one</li><li>two</li></ul><div>not</div>')
       );
-    } else if (Prototype.Browser.Gecko) {
+    } else if (jQuery.browser.mozilla) {
       runner.assertEqual(
         '<div>Here is some basic text<br></div><div>with a line break.</div><div><br></div><div>And maybe another paragraph<br></div>',
         getApplicationMarkupFrom('Here is some basic text<br>with a line break.<br><br>And maybe another paragraph<br>')
@@ -178,7 +187,7 @@ new Test.Unit.Runner({
         '<ul><li>one</li><li>two</li></ul><div>not<br></div>',
         getApplicationMarkupFrom('<ul><li>one</li><li>two</li></ul>not<br>')
       );
-    } else if (Prototype.Browser.IE) {
+    } else if (jQuery.browser.msie) {
       runner.assertEqual(
         '<DIV><BR></DIV>',
         getApplicationMarkupFrom('<P></P>')

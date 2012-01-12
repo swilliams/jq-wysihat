@@ -5,16 +5,16 @@
 
   <link rel="stylesheet" href="editor.css" type="text/css" />
 
-  <script type="text/javascript" src="../dist/jquery-1.4.2.min.js"></script>
+  <script type="text/javascript" src="../dist/jquery.js"></script>
   <script type="text/javascript" src="../dist/jq-wysihat.js"></script>
 
   <script type="text/javascript" charset="utf-8">
+  $(function() {
+    $('#content').wysihat();
 
-	$(function() {
-		$('#content').wysihat();
-		$('#error').hide();
-	});
-
+    // Hide our error message if the editor loads fine
+    $('#error').hide();
+  });
   </script>
 </head>
 
@@ -24,10 +24,10 @@
   <p>This is a simple example of how easy it is to get up and running with WysiHat.</p>
 
 <code><pre>
-    // Replaces the textarea 'content' with the wysiwyg editor on load using the jQuery plugin model.
-	$(function() {
-		$('#content').wysihat();
-	});
+  // Replaces the textarea 'content' with the wysiwyg editor on load using the jQuery plugin model.
+  $(function() {
+    $('#content').wysihat();
+  });
 </pre></code>
 
   <form action="#" method="post" style="width: 500px;">

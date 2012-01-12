@@ -16,20 +16,20 @@ WysiHat.Formatting = (function() {
       }
 
       function convertStrongsToSpans() {
-        container.find("strong").each(function(element) {
+        container.find("strong").each(function(index, element) {
           spanify(element, "font-weight: bold");
         });
       }
 
       function convertEmsToSpans() {
-        container.find("em").each(function(element) {
+        container.find("em").each(function(index, element) {
           spanify(element, "font-style: italic");
         });
       }
 
       function convertDivsToParagraphs() {
-        container.find("div").each(function(element) {
-          element.replaceWith("<p>" + element.innerHTML + "</p>");
+        container.find("div").each(function(index, element) {
+          $(element).replaceWith("<p>" + element.innerHTML + "</p>");
         });
       }
 
@@ -40,10 +40,11 @@ WysiHat.Formatting = (function() {
         convertDivsToParagraphs();
       }
 
-      return container.innerHTML;
+      return container.html();
     },
 
-    getApplicationMarkupFrom: function(element) {
+    getApplicationMarkupFrom: function($element) {
+      var element = $element.get(0);
       var mode = ACCUMULATING_LINE, result, container, line, lineContainer, previousAccumulation;
 
       function walk(nodes) {
@@ -52,13 +53,13 @@ WysiHat.Formatting = (function() {
         for (i = 0; i < length; i++) {
           node = nodes[i];
 
-          if (node.nodeType == Node.ELEMENT_NODE) {
+          if (node.nodeType == 1) {
             tagName = node.tagName.toLowerCase();
             open(tagName, node);
             walk(node.childNodes);
             close(tagName);
 
-          } else if (node.nodeType == Node.TEXT_NODE) {
+          } else if (node.nodeType == 3) {
             read(node.nodeValue);
           }
         }
@@ -69,7 +70,7 @@ WysiHat.Formatting = (function() {
           // if it's a block-level element and the line buffer is full, flush it
           if (isBlockElement(tagName)) {
             if (isEmptyParagraph(node)) {
-              accumulate($("<br />"));
+              accumulate($("<br />").get(0));
             }
 
             flush();
@@ -173,11 +174,11 @@ WysiHat.Formatting = (function() {
         var element = node.cloneNode(false);
 
         if (tagName == "span") {
-          if ($(node).getStyle("fontWeight") == "bold") {
-            element = $("<strong></strong>");
+          if ($(node).css('fontWeight') == "bold") {
+            element = $("<strong></strong>").get(0);
 
-          } else if ($(node).getStyle("fontStyle") == "italic") {
-            element = $("<em></em>");
+          } else if ($(node).css('fontStyle') == "italic") {
+            element = $("<em></em>").get(0);
           }
         }
 
@@ -194,7 +195,7 @@ WysiHat.Formatting = (function() {
       }
 
       function getPreviouslyAccumulatedTagName() {
-        if (previousAccumulation && previousAccumulation.nodeType == Node.ELEMENT_NODE) {
+        if (previousAccumulation && previousAccumulation.nodeType == 1) {
           return previousAccumulation.tagName.toLowerCase();
         }
       }
@@ -208,19 +209,19 @@ WysiHat.Formatting = (function() {
 
       function createLine() {
         if (mode == ACCUMULATING_LINE) {
-          return $("<div></div>");
+          return $("<div></div>").get(0);
         } else if (mode == ACCUMULATING_LIST_ITEM) {
-          return $("<li></li>");
+          return $("<li></li>").get(0);
         }
       }
 
       function insertList(tagName) {
-        var list = new Element(tagName);
+        var list = $('<' + tagName + '></' + tagName + '>').get(0);
         result.appendChild(list);
         return list;
       }
 
-      result = container = $("<div></div>");
+      result = container = $("<div></div>").get(0);
       walk(element.childNodes);
       flush();
       return result.innerHTML;

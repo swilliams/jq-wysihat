@@ -52,9 +52,9 @@
     return element;
   }
 
-  function onFrameLoaded($element, callback) {
-    $element.bind('frame:loaded', callback);
-    $element.observeFrameContentLoaded();
+  function onFrameLoaded(element, callback) {
+    element.bind('frame:loaded', callback);
+    element.observeFrameContentLoaded();
   }
 
   $.fn.observeFrameContentLoaded = observeFrameContentLoaded;
