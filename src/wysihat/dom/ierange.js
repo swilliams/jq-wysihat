@@ -45,7 +45,7 @@ if (!window.getSelection) {
     }
   };
 
-  var Range = (function() {
+  Range = (function() {
     function Range(document) {
       // save document parameter
       this._document = document;
@@ -388,7 +388,7 @@ if (!window.getSelection) {
     return new Range(document);
   };
 
-  var Selection = (function() {
+  Selection = (function() {
     function Selection(document) {
       this._document = document;
 
