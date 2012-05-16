@@ -45,7 +45,7 @@ if (!window.getSelection) {
     }
   };
 
-  window.Range = (function() {
+  var Range = (function() {
     function Range(document) {
       // save document parameter
       this._document = document;
@@ -352,6 +352,7 @@ if (!window.getSelection) {
 
     return Range;
   })();
+  window.Range = Range;
 
   window.Range._fromTextRange = function(textRange, document) {
     function adoptBoundary(domRange, textRange, bStart) {
@@ -387,7 +388,7 @@ if (!window.getSelection) {
     return new Range(document);
   };
 
-  window.Selection = (function() {
+  var Selection = (function() {
     function Selection(document) {
       this._document = document;
 
@@ -441,6 +442,7 @@ if (!window.getSelection) {
 
     return Selection;
   })();
+  window.Selection = Selection;
 
   window.getSelection = (function() {
     var selection = new Selection(document);
