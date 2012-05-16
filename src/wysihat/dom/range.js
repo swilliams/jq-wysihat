@@ -36,15 +36,20 @@ $.extend(Range.prototype, (function() {
     while (parent.nodeType == Node.TEXT_NODE)
       parent = parent.parentNode;
 
-    var child; 
+    var node;
     var that = this;
     $.each(parent.children, function(index, child) {
       var range = document.createRange();
       range.selectNodeContents(child);
-      child = that.betweenRange(range);
+      if (that.betweenRange(range)) {
+        node = child;
+        return false;
+      }
     });
 
-    return $(child || parent);
+    node = node || parent;
+
+    return $(node);
   }
 
   return {
