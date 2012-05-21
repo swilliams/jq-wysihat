@@ -28,11 +28,8 @@
                 { label: 'H3', val: 'H3' }
                 ],
                 handler: function(editor, val) {
-                    editor.headerSelection(val);
-                    },
-                query: function(editor) {
-                    return editor.headerSelected();
-                }
+                    editor.formatblockSelection(val);
+                    }
           });
       // Hide our error message if the editor loads fine
       $('#error').hide();
