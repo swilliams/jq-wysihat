@@ -14,8 +14,11 @@ $(document).ready(function() {
 
     var selectionChangeHandler = function() {
       var element        = document.activeElement;
-      var elementTagName = element.tagName.toLowerCase();
-
+      try {
+        var elementTagName = element.tagName.toLowerCase();
+      } catch (e) {
+        return;
+      }
       if (elementTagName == "textarea" || elementTagName == "input") {
         previousRange = null;
         $(element).trigger("selection:change");
