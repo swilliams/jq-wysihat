@@ -1,6 +1,5 @@
 require 'rake'
 require 'rake/clean'
-require 'rake/rdoctask'
 require 'rake/testtask'
 
 CLEAN.include 'test/unit/tmp'
@@ -13,34 +12,26 @@ WYSIHAT_SRC_DIR = File.join(WYSIHAT_ROOT, 'src')
 
 # Distribution
 
-file 'dist/jquery-1.4.2.min.js' => :sprockets do |t|
+file 'dist/jquery.js' => :sprockets do |t|
   jquery_src_dir = "#{WYSIHAT_ROOT}/vendor/jquery"
 
-  secretary = Sprockets::Secretary.new(
-    :root         => jquery_src_dir,
-    :load_path    => [jquery_src_dir],
-    :source_files => ["jquery-1.4.2.min.js"]
-  )
-
+  env = Sprockets::Environment.new
+  env.prepend_path jquery_src_dir
   FileUtils.mkdir_p File.dirname(t.name)
-  secretary.concatenation.save_to(t.name)
+  File.open(t.name, 'w') {|f| f.write(env['jquery-1.6.4.js'].to_s) }
 end
 
 file 'dist/jq-wysihat.js' => Dir['src/**/*'] + [:sprockets] do |t|
-  secretary = Sprockets::Secretary.new(
-    :root         => WYSIHAT_SRC_DIR,
-    :load_path    => [WYSIHAT_SRC_DIR],
-    :source_files => ["wysihat.js"]
-  )
-
+  env = Sprockets::Environment.new
+  env.prepend_path WYSIHAT_SRC_DIR
   FileUtils.mkdir_p File.dirname(t.name)
-  secretary.concatenation.save_to(t.name)
+  File.open(t.name, 'w') {|f| f.write(env['wysihat.js'].to_s) }
 end
 
 task :default => :dist
 
 desc "Builds the distribution."
-task :dist => ['dist/jquery-1.4.2.min.js', 'dist/jq-wysihat.js']
+task :dist => ['dist/jquery.js', 'dist/jq-wysihat.js']
 
 
 # Documentation
@@ -50,14 +41,10 @@ file 'doc' => Dir['src/**/*'] + [:sprockets, :pdoc] do
   require 'tempfile'
 
   Tempfile.open('pdoc') do |temp|
-    secretary = Sprockets::Secretary.new(
-      :root         => WYSIHAT_SRC_DIR,
-      :load_path    => [WYSIHAT_SRC_DIR],
-      :source_files => ["wysihat.js"],
-      :strip_comments => false
-    )
+    env = Sprockets::Environment.new
+    env.prepend_path WYSIHAT_SRC_DIR
+    File.open(temp.path, 'w') {|f| f.write(env['wysihat.js'].to_s) }
 
-    secretary.concatenation.save_to(temp.path)
     PDoc::Runner.new(temp.path, :destination => "#{WYSIHAT_ROOT}/doc").run
   end
 end

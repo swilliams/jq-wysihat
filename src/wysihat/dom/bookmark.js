@@ -1,13 +1,13 @@
-//= require "selection"
+//= require "./selection"
 
-if ($.browser.msie) {
-  $.extend(Selection.prototype, (function() {
+if (jQuery.browser.msie) {
+  jQuery.extend(Selection.prototype, (function() {
     function setBookmark() {
-      var bookmark = $('#bookmark');
+      var bookmark = jQuery('#bookmark');
       if (bookmark) bookmark.remove();
 
-      bookmark = $('<span id="bookmark">&nbsp;</span>');
-      var parent = $('<div></div>').html(bookmark);
+      bookmark = jQuery('<span id="bookmark">&nbsp;</span>');
+      var parent = jQuery('<div></div>').html(bookmark);
 
       var range = this._document.selection.createRange();
       range.collapse();
@@ -15,7 +15,7 @@ if ($.browser.msie) {
     }
 
     function moveToBookmark() {
-      var bookmark = $('#bookmark');
+      var bookmark = jQuery('#bookmark');
       if (!bookmark) return;
 
       var range = this._document.selection.createRange();
@@ -34,15 +34,15 @@ if ($.browser.msie) {
 } else {
   $.extend(Selection.prototype, (function() {
     function setBookmark() {
-      var bookmark = $('#bookmark');
+      var bookmark = jQuery('#bookmark');
       if (bookmark) bookmark.remove();
 
-      bookmark = $('<span id="bookmark">&nbsp;</span>');
+      bookmark = jQuery('<span id="bookmark">&nbsp;</span>');
       this.getRangeAt(0).insertNode(bookmark);
     }
 
     function moveToBookmark() {
-      var bookmark = $('#bookmark');
+      var bookmark = jQuery('#bookmark');
       if (!bookmark) return;
 
       var range = document.createRange();

@@ -3,3 +3,4 @@ doc/
 test/unit/tmp/*
 *.kpf
 *.tmproj
+Gemfile.lock
