@@ -1,0 +1,18 @@
+{
+  "name": "jq-wysihat",
+  "main": "dist/jq-wysihat.js",
+  "ignore": [
+    "CHANGELOG",
+    "dist/jquery-1.4.2.min.js",
+    "examples",
+    "LICENSE",
+    "Rakefile",
+    "README.markdown",
+    "src",
+    "test",
+    "vendor"
+  ],
+  "dependencies": {
+    "jquery": ">=1.4.2"
+  }
+}
