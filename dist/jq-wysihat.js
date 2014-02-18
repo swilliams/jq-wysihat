@@ -618,16 +618,16 @@ if ($.browser.msie) {
   })());
 }
 $(document).ready(function() {
-  function fieldChangeHandler(event, element) {
-    var $element = $(element);
+  function fieldChangeHandler(event) {
+    var $element = $(this);
     element = $element.get(0);
     var value;
 
     if ($element.attr('contentEditable') === 'true') {
       value = $element.html();
+    } else {
+      value = $element.val();
     }
-    value = $element.val();
-
     if (value && element.previousValue != value) {
       $element.trigger("field:change");
       element.previousValue = value;
