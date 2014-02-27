@@ -80,6 +80,15 @@ WysiHat.Commands = (function(window) {
   function strikethroughSelection() {
     this.execCommand('strikethrough', false, null);
   }
+  
+  /**
+   *  WysiHat.Commands#strikethroughSelected() -> boolean
+   *
+   *  Check if current selection is strikethroughed.
+  **/
+  function strikethroughSelected() {
+	  return this.queryCommandState('strikethrough');
+  }
 
   /**
    *  WysiHat.Commands#indentSelection() -> undefined
