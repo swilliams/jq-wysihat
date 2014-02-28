@@ -1,5 +1,15 @@
-WysiHat
+Miracle Whyzz
 =======
+
+#### I just can't believe it's not Wysihat
+
+WysiHat was the only sane (extendible, robust, clean, tiny) Wysiwyg HTML editor around before bit rot took ahold of it.
+
+I have been maintaining this fork at Altruja for our own use for three years now and it has served us quite well.
+
+There is some unmerged work that is more than just maintenance so the new name is here mainly so I won't forget it.
+
+The remainder of this file is the original and outdated jq-wysihat documentation.
 
 #### A WYSIWYG JavaScript framework
 
