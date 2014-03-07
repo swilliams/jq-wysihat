@@ -572,7 +572,7 @@ $.extend(Range.prototype, (function() {
   };
 })());
 
-if ($.browser.msie) {
+if (Selection) {
   $.extend(Selection.prototype, (function() {
     function getNode() {
       var range = this._document.selection.createRange();
@@ -668,7 +668,7 @@ WysiHat.Commands = (function(window) {
   }
 
   function indentSelection() {
-    if ($.browser.mozilla) {
+    if (window.getSelection) {
       var selection, range, node, blockquote;
 
       selection = window.getSelection();
@@ -720,9 +720,7 @@ WysiHat.Commands = (function(window) {
   }
 
   function backgroundColorSelection(color) {
-    if($.browser.mozilla) {
-      this.execCommand('hilitecolor', false, color);
-    } else {
+    if(false == this.execCommand('hilitecolor', false, color)) {
       this.execCommand('backcolor', false, color);
     }
   }
@@ -812,7 +810,7 @@ WysiHat.Commands = (function(window) {
   }
 
   function insertHTML(html) {
-    if ($.browser.msie) {
+    if (window.document.selection && window.document.selection.createRange) {
       var range = window.document.selection.createRange();
       range.pasteHTML(html);
       range.collapse(false);
@@ -909,7 +907,7 @@ WysiHat.Commands = (function(window) {
 })(window);
 
 
-if ($.browser.msie) {
+if (Selection) {
   $.extend(Selection.prototype, (function() {
     function setBookmark() {
       var bookmark = $('#bookmark');
@@ -1196,12 +1194,12 @@ WysiHat.Formatting = (function() {
         });
       }
 
-      if ($.browser.webkit || $.browser.mozilla) {
-        convertStrongsToSpans();
-        convertEmsToSpans();
-      } else if ($.browser.msie || $.browser.opera) {
-        convertDivsToParagraphs();
-      }
+//      if ($.browser.webkit || $.browser.mozilla) {
+//        convertStrongsToSpans();
+//        convertEmsToSpans();
+//      } else if ($.browser.msie || $.browser.opera) {
+//        convertDivsToParagraphs();
+//      }
 
       return container.innerHTML;
     },
@@ -1549,7 +1547,11 @@ $.fn.wysihat = function(options) {
 		var toolbar = new WysiHat.Toolbar(editor);
 		toolbar.initialize(editor);
 		toolbar.addButtonSet(options);
-	});
+
+    editor.on('paste', function () {
+      alert(1);
+    });
+  });
 };
 
 window.WysiHat = WysiHat;
