@@ -1,3 +1,8 @@
+*0.4*
+
+* Rebranding to Miracle Whyzz (The hacks went too deep to keep the name)
+* Tested and fixed for IE8-11, FF, Chrome
+
 *0.3*
 
 * Removed iFrame support and transitioned to contentEditable. This drops
