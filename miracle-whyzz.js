@@ -34,11 +34,9 @@ WysiHat.BrowserFeatures = (function() {
   function createTmpIframe(callback) {
     var frame, frameDocument;
 
-    frame = $('<iframe></iframe>');
-    frame.css({
-      position: 'absolute',
-      left: '-1000px'
-    });
+    frame = document.createElement('iframe');
+    frame.style.position='absolute';
+    frame.style.left='-1000px';
 
     frame.onFrameLoaded(function() {
       if (typeof frame.contentDocument !== 'undefined') {
@@ -54,7 +52,7 @@ WysiHat.BrowserFeatures = (function() {
       frame.remove();
     });
 
-    $(document.body).insert(frame);
+    document.body.insert(frame, document.body.firstChild);
   }
 
   var features = {};
