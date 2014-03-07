@@ -1,5 +1,0 @@
-dist/
-doc/
-test/unit/tmp/*
-*.kpf
-*.tmproj
