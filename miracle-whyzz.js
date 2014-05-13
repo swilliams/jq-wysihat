@@ -591,7 +591,7 @@ if (Selection) {
 } else {
   if (typeof Selection == 'undefined') {
     var Selection = {}
-    Selection.prototype = window.getSelection().__proto__;
+    Selection.prototype = window.getSelection().__proto__ || window.getSelection().constructor.prototype;
   }
 
   $.extend(Selection.prototype, (function() {
