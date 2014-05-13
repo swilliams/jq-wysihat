@@ -1,0 +1,13 @@
+{
+  "name": "miracle-whyzz",
+  "main": "miracle-whyzz.js",
+  "ignore": [
+    "CHANGELOG",
+    "LICENSE",
+    "README.markdown"
+  ],
+  "dependencies": {
+    "jquery": ">=1.8.1"
+  }
+}
+
